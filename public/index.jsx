@@ -73,6 +73,7 @@ function createModel() {
           }
         }
         appContainer.classList.remove("kef-doc")
+        parent.document.body.style.overflow = null
       } else {
         if (pageContainer == null) {
           const { preferredLanguage: lang } = await logseq.App.getUserConfigs()
@@ -84,6 +85,7 @@ function createModel() {
           )
           return
         }
+        parent.document.body.style.overflow = "auto"
         appContainer.classList.add("kef-doc")
         for (const event of ["mousedown", "click"]) {
           pageContainer.addEventListener(event, preventEditing, {
@@ -199,6 +201,7 @@ function main() {
     const appContainer = parent.document.getElementById("app-container")
     const pageContainer = parent.document.querySelector(".page.relative")
     appContainer.classList.remove("kef-doc")
+    parent.document.body.style.overflow = null
     if (pageContainer) {
       for (const event of ["mousedown", "click"]) {
         pageContainer.removeEventListener(event, preventEditing, {
