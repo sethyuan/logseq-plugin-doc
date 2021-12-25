@@ -11,7 +11,24 @@ const downloadSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20">
 </svg>`
 
 function preventEditing(e) {
-  e.stopPropagation()
+  // keydown
+  if (e.type === "keydown") {
+    if (parent.document.body.querySelector("#app-container.kef-doc") && e.key !== "Escape") {
+      e.stopPropagation()
+    }
+    return
+  }
+
+  // mousedown, click
+  const path = e.composedPath()
+  for (let i = path.length - 1; i >= 0; i--) {
+    if (path[i].id === "left-container") {
+      if (path[i-1]?.id === "main-container") {
+        e.stopPropagation()
+      }
+      return
+    }
+  }
 }
 
 function prepareDoc() {
@@ -61,34 +78,22 @@ function createModel() {
   return {
     async toggleDocView() {
       const appContainer = parent.document.getElementById("app-container")
-      const pageContainer = parent.document.querySelector(".page.relative")
 
       if (appContainer.classList.contains("kef-doc")) {
-        if (pageContainer) {
-          for (const event of ["mousedown", "click"]) {
-            pageContainer.removeEventListener(event, preventEditing, {
-              capture: true,
-            })
-          }
+        for (const event of ["mousedown", "click", "keydown"]) {
+          parent.document.body.removeEventListener(event, preventEditing, {
+            capture: true,
+          })
         }
         appContainer.classList.remove("kef-doc")
         parent.document.body.style.overflow = null
       } else {
-        if (pageContainer == null) {
-          const { preferredLanguage: lang } = await logseq.App.getUserConfigs()
-          logseq.App.showMsg(
-            lang === "zh-CN"
-              ? "您需要进入到页面或块中方可预览！"
-              : "You must be within a page or block to preview!",
-            "warn",
-          )
-          return
-        }
         parent.document.body.style.overflow = "auto"
         appContainer.classList.add("kef-doc")
-        for (const event of ["mousedown", "click"]) {
-          pageContainer.addEventListener(event, preventEditing, {
+        for (const event of ["mousedown", "click", "keydown"]) {
+          parent.document.body.addEventListener(event, preventEditing, {
             capture: true,
+            passive: true,
           })
         }
       }
@@ -198,16 +203,13 @@ function main() {
 
   logseq.beforeunload(() => {
     const appContainer = parent.document.getElementById("app-container")
-    const pageContainer = parent.document.querySelector(".page.relative")
+    for (const event of ["mousedown", "click", "keydown"]) {
+      parent.document.body.removeEventListener(event, preventEditing, {
+        capture: true,
+      })
+    }
     appContainer.classList.remove("kef-doc")
     parent.document.body.style.overflow = null
-    if (pageContainer) {
-      for (const event of ["mousedown", "click"]) {
-        pageContainer.removeEventListener(event, preventEditing, {
-          capture: true,
-        })
-      }
-    }
   })
 
   console.log("#doc loaded")
