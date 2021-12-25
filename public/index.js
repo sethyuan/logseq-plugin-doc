@@ -54,7 +54,6 @@ function saveDoc(doc) {
   link.download = "doc.html"
   link.href = URL.createObjectURL(blob)
   link.onclick = () => URL.revokeObjectURL(blob)
-  link.style.display = "none"
   link.click()
 }
 
