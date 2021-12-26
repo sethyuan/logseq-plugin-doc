@@ -24,7 +24,10 @@ function preventEditing(e) {
   for (let i = path.length - 1; i >= 0; i--) {
     if (path[i].id === "left-container") {
       if (path[i-1]?.id === "main-container") {
-        e.stopPropagation()
+        if (parent.document.querySelector(".cp__plugins-page") == null) {
+          // Stop if in main container but in plugins page.
+          e.stopPropagation()
+        }
       }
       return
     }
@@ -184,11 +187,14 @@ function main() {
       margin-left: 0 !important;
       border-left: 0 !important;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] .block-children div[blockid] > div:first-child > div:first-child {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children > div[blockid] > div:first-child > div:first-child {
       display: flex;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] .block-children span.inline {
-      padding-left: 0;
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children {
+      margin-left: 45px !important;
+    }
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children {
+      margin-left: 29px !important;
     }
     .kef-doc #main-content-container .page.relative .references {
       display: none;
