@@ -13,7 +13,10 @@ const downloadSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20">
 function preventEditing(e) {
   // keydown
   if (e.type === "keydown") {
-    if (parent.document.body.querySelector("#app-container.kef-doc") && e.key !== "Escape") {
+    if (
+      parent.document.body.querySelector("#app-container.kef-doc") &&
+      e.key !== "Escape"
+    ) {
       e.stopPropagation()
     }
     return
@@ -23,7 +26,7 @@ function preventEditing(e) {
   const path = e.composedPath()
   for (let i = path.length - 1; i >= 0; i--) {
     if (path[i].id === "left-container") {
-      if (path[i-1]?.id === "main-container") {
+      if (path[i - 1]?.id === "main-container") {
         if (parent.document.querySelector(".cp__plugins-page") == null) {
           // Stop if in main container but in plugins page.
           e.stopPropagation()
@@ -52,8 +55,15 @@ function prepareDoc() {
       node.attributes.href.value.startsWith(".")
     ) {
       node.attributes.href.value = node.href
+    } else if (
+      node.nodeName.toLowerCase() === "script" &&
+      node.attributes.src.value.startsWith(".")
+    ) {
+      node.attributes.src.value = node.src
     }
   }
+  html.appendChild(head)
+  html.appendChild(body)
   body.appendChild(rootDiv)
   rootDiv.appendChild(themeDiv)
   themeDiv.appendChild(appDiv)
@@ -62,8 +72,12 @@ function prepareDoc() {
     "main-content-container",
   ).innerHTML
 
-  html.appendChild(head)
-  html.appendChild(body)
+  const imgs = mainDiv.querySelectorAll("img")
+  for (const img of imgs) {
+    if (img.src.startsWith("assets://")) {
+      img.src = img.src.replace("assets://", "file://")
+    }
+  }
 
   return html.outerHTML
 }
