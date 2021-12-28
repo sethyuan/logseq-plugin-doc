@@ -103,9 +103,9 @@ function createModel() {
           })
         }
         appContainer.classList.remove("kef-doc")
-        parent.document.body.style.overflow = null
+        parent.document.body.style.height = null
       } else {
-        parent.document.body.style.overflow = "auto"
+        parent.document.body.style.height = "auto"
         appContainer.classList.add("kef-doc")
         for (const event of ["mousedown", "click", "keydown"]) {
           parent.document.body.addEventListener(event, preventEditing, {
