@@ -191,7 +191,7 @@ function main() {
     .kef-doc #main-content-container span.inline {
       line-height: 1.6;
     }
-    .kef-doc #main-content-container span.inline div[data-tooltipped] .tag {
+    .kef-doc #main-content-container div[data-tooltipped] .tag {
       display: none !important;
     }
     .kef-doc #main-content-container div[blockid] > div:first-child > div:first-child {
