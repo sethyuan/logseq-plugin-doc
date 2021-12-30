@@ -229,8 +229,8 @@ function main() {
 
   logseq.App.registerUIItem("toolbar", {
     key: `kef-doc-doc`,
-    template: `<div style="margin: 0 5px;"><a class="kef-doc-icon" data-on-click="toggleDocView">${docSvg}</a>
-    <a class="kef-doc-icon kef-doc-download" data-on-click="startDownload">${downloadSvg}</a></div>`,
+    template: `<div style="margin: 0 5px;"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload">${downloadSvg}</a>
+    <a class="kef-doc-icon" data-on-click="toggleDocView">${docSvg}</a></div>`,
   })
 
   logseq.beforeunload(() => {
