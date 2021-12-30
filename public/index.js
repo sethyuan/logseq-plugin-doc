@@ -10,6 +10,17 @@ const downloadSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20">
 <path fill="none" d="M17.737,9.815c-0.327,0-0.592,0.265-0.592,0.591v2.903H2.855v-2.903c0-0.327-0.264-0.591-0.591-0.591c-0.327,0-0.591,0.265-0.591,0.591V13.9c0,0.328,0.264,0.592,0.591,0.592h15.473c0.327,0,0.591-0.264,0.591-0.592v-3.494C18.328,10.08,18.064,9.815,17.737,9.815z"></path>
 </svg>`
 
+// NOTE: Rule ".kef-doc #main-content-container .block-children" will be
+// marked obsolete in future versions.
+const styleOverride056 = `
+.kef-doc #main-content-container .block-children-container {
+  margin-left: 0 !important;
+}
+.kef-doc #main-content-container .block-children-left-border {
+  display: none;
+}
+`
+
 function preventEditing(e) {
   // keydown
   if (e.type === "keydown") {
@@ -213,6 +224,7 @@ function main() {
     .kef-doc #main-content-container .page.relative .references {
       display: none;
     }
+    ${styleOverride056}
   `)
 
   logseq.App.registerUIItem("toolbar", {
