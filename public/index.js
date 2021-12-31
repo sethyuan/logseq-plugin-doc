@@ -19,6 +19,18 @@ const styleOverride056 = `
 .kef-doc #main-content-container .block-children-left-border {
   display: none;
 }
+.kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
+  display: flex;
+}
+.kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container {
+  margin-left: 36px !important;
+}
+.kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container {
+  margin-left: 29px !important;
+}
+.kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control {
+  min-width: 11px;
+}
 `
 
 function preventEditing(e) {
@@ -222,6 +234,9 @@ function main() {
       margin-left: 29px !important;
     }
     .kef-doc #main-content-container .page.relative .references {
+      display: none;
+    }
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show {
       display: none;
     }
     ${styleOverride056}
