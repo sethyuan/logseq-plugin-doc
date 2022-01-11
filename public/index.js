@@ -148,11 +148,17 @@ function createModel() {
 
 function main() {
   logseq.provideStyle(`
+    .kef-doc-container {
+      margin: 0 5px;
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+    }
     .kef-doc-icon {
-      display: inline-block;
+      display: block;
       width: 30px;
       height: 30px;
-      padding: 4px 5px;
+      padding: 7px 5px 4px;
       border-radius: 4px;
     }
     .kef-doc-svg {
@@ -196,6 +202,7 @@ function main() {
       stroke: var(--ls-link-ref-text-color);
     }
     .kef-doc-download {
+      margin-right: 6px;
       display: none;
     }
     .kef-doc .kef-doc-download {
@@ -245,7 +252,7 @@ function main() {
 
   logseq.App.registerUIItem("toolbar", {
     key: `kef-doc-doc`,
-    template: `<div style="margin: 0 5px;"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload">${downloadSvg}</a>
+    template: `<div class="kef-doc-container"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload">${downloadSvg}</a>
     <a class="kef-doc-icon" data-on-click="toggleDocView">${docSvg}</a></div>`,
   })
 
