@@ -233,7 +233,8 @@ function main() {
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children {
       margin-left: 29px !important;
     }
-    .kef-doc #main-content-container .page.relative .references {
+    .kef-doc #main-content-container .page.relative .references,
+    .kef-doc #main-content-container .page.relative .page-hierachy {
       display: none;
     }
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show {
