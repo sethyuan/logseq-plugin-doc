@@ -125,11 +125,16 @@ function createModel() {
             capture: true,
           })
         }
-        appContainer.classList.remove("kef-doc")
+        appContainer.classList.remove("kef-doc", "kef-doc-show-refs")
         parent.document.body.style.height = null
       } else {
         parent.document.body.style.height = "auto"
-        appContainer.classList.add("kef-doc")
+        appContainer.classList.add(
+          ...[
+            "kef-doc",
+            ...(logseq.settings?.showReferences ? ["kef-doc-show-refs"] : []),
+          ],
+        )
         for (const event of ["mousedown", "click", "keydown"]) {
           parent.document.body.addEventListener(event, preventEditing, {
             capture: true,
@@ -246,6 +251,9 @@ function main() {
     }
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show {
       display: none;
+    }
+    .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
+      display: block;
     }
     ${styleOverride056}
   `)
