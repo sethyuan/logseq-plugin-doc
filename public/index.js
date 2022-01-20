@@ -47,7 +47,17 @@ function preventEditing(e) {
 
   // mousedown, click
   const path = e.composedPath()
-  for (let i = path.length - 1; i >= 0; i--) {
+
+  // Let go of any links.
+  if (path[0]?.tagName.toLowerCase() === "a") return
+
+  for (let i = 0; i < path.length; i++) {
+    // Let go of block refs.
+    if (path[i].classList?.contains("block-ref")) return
+    // Let go of tocgen links.
+    if (path[i].classList?.contains("kef-tocgen-page")) return
+    if (path[i].classList?.contains("kef-tocgen-block")) return
+
     if (path[i].id === "left-container") {
       if (path[i - 1]?.id === "main-container") {
         if (parent.document.querySelector(".cp__plugins-page") == null) {
