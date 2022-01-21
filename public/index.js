@@ -10,42 +10,20 @@ const downloadSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20">
 <path fill="none" d="M17.737,9.815c-0.327,0-0.592,0.265-0.592,0.591v2.903H2.855v-2.903c0-0.327-0.264-0.591-0.591-0.591c-0.327,0-0.591,0.265-0.591,0.591V13.9c0,0.328,0.264,0.592,0.591,0.592h15.473c0.327,0,0.591-0.264,0.591-0.592v-3.494C18.328,10.08,18.064,9.815,17.737,9.815z"></path>
 </svg>`
 
-// NOTE: Rule ".kef-doc #main-content-container .block-children" will be
-// marked obsolete in future versions.
-const styleOverride056 = `
-.kef-doc #main-content-container .block-children-container {
-  margin-left: 0 !important;
-}
-.kef-doc #main-content-container .block-children-left-border {
-  display: none;
-}
-.kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
-  display: flex;
-}
-.kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container {
-  margin-left: 36px !important;
-}
-.kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container {
-  margin-left: 29px !important;
-}
-.kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control {
-  min-width: 11px;
-}
-`
-
 function preventEditing(e) {
   // keydown
   if (e.type === "keydown") {
     if (
       parent.document.body.querySelector("#app-container.kef-doc") &&
-      e.key !== "Escape"
+      e.key !== "Escape" &&
+      !((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K"))
     ) {
       e.stopPropagation()
     }
     return
   }
 
-  // mousedown, click
+  // mouse and click
   const path = e.composedPath()
 
   // Let go of any links.
@@ -145,7 +123,13 @@ function createModel() {
             ...(logseq.settings?.showReferences ? ["kef-doc-show-refs"] : []),
           ],
         )
-        for (const event of ["mousedown", "click", "keydown"]) {
+        for (const event of [
+          "mousedown",
+          "mousemove",
+          "mouseup",
+          "click",
+          "keydown",
+        ]) {
           parent.document.body.addEventListener(event, preventEditing, {
             capture: true,
             passive: true,
@@ -224,6 +208,9 @@ function main() {
       display: inline-block;
     }
 
+    .kef-doc ~ .cp__sidebar-help-btn {
+      display: none;
+    }
     .kef-doc #main-content-container .page-blocks-inner {
       margin-left: 0 !important;
     }
@@ -243,17 +230,25 @@ function main() {
       display: none;
     }
     .kef-doc #main-content-container .block-children {
-      margin-left: 0 !important;
       border-left: 0 !important;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children > div[blockid] > div:first-child > div:first-child {
+    .kef-doc #main-content-container .block-children-container {
+      margin-left: 0 !important;
+    }
+    .kef-doc #main-content-container .block-children-left-border {
+      display: none;
+    }
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
       display: flex;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children {
-      margin-left: 45px !important;
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container {
+      margin-left: 36px !important;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container {
       margin-left: 29px !important;
+    }
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control {
+      min-width: 11px;
     }
     .kef-doc #main-content-container .page.relative .references,
     .kef-doc #main-content-container .page.relative .page-hierachy {
@@ -265,7 +260,6 @@ function main() {
     .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
       display: block;
     }
-    ${styleOverride056}
   `)
 
   logseq.App.registerUIItem("toolbar", {
