@@ -8,6 +8,12 @@ Show page in a more document like look and provide quick exporting.
 
 ![demo](./demo.gif)
 
+## 快捷键 (Shortcuts)
+
+通过命令栏可以找到切换文档视图的命令，它的快捷键为 macOS 下 `cmd+shift+d` 或者 Windows 下 `ctrl+shift+d`。
+
+You can toggle the document view with the command palette，It's shortcut key is `cmd+shift+d` on macOS, `ctrl+shift+d` on Windows.
+
 ## 关于无序列表 (About bullet lists)
 
 你可以在无序列表的块上加`#ul`标签，这样插件就知道这是一个无序列表并配合排版了。
