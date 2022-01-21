@@ -10,13 +10,31 @@ const downloadSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20">
 <path fill="none" d="M17.737,9.815c-0.327,0-0.592,0.265-0.592,0.591v2.903H2.855v-2.903c0-0.327-0.264-0.591-0.591-0.591c-0.327,0-0.591,0.265-0.591,0.591V13.9c0,0.328,0.264,0.592,0.591,0.592h15.473c0.327,0,0.591-0.264,0.591-0.592v-3.494C18.328,10.08,18.064,9.815,17.737,9.815z"></path>
 </svg>`
 
+const EVENTS_TO_PREVENT = [
+  "mousedown",
+  "mousemove",
+  "mouseup",
+  "click",
+  "keydown",
+]
+
+const KEYS_TO_PREVENT = new Set([
+  "Enter",
+  "ArrowUp",
+  "ArrowDown",
+  "ArrowLeft",
+  "ArrowRight",
+  "Backspace",
+])
+
+let uiModalOverlay = null
+
 function preventEditing(e) {
   // keydown
   if (e.type === "keydown") {
     if (
-      parent.document.body.querySelector("#app-container.kef-doc") &&
-      e.key !== "Escape" &&
-      !((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K"))
+      KEYS_TO_PREVENT.has(e.key) &&
+      uiModalOverlay?.classList.contains("opacity-0")
     ) {
       e.stopPropagation()
     }
@@ -102,50 +120,47 @@ function saveDoc(doc) {
   link.click()
 }
 
-function createModel() {
-  return {
-    async toggleDocView() {
-      const appContainer = parent.document.getElementById("app-container")
+const model = {
+  async toggleDocView() {
+    const appContainer = parent.document.getElementById("app-container")
 
-      if (appContainer.classList.contains("kef-doc")) {
-        for (const event of ["mousedown", "click", "keydown"]) {
-          parent.document.body.removeEventListener(event, preventEditing, {
-            capture: true,
-          })
-        }
-        appContainer.classList.remove("kef-doc", "kef-doc-show-refs")
-        parent.document.body.style.height = null
-      } else {
-        parent.document.body.style.height = "auto"
-        appContainer.classList.add(
-          ...[
-            "kef-doc",
-            ...(logseq.settings?.showReferences ? ["kef-doc-show-refs"] : []),
-          ],
-        )
-        for (const event of [
-          "mousedown",
-          "mousemove",
-          "mouseup",
-          "click",
-          "keydown",
-        ]) {
-          parent.document.body.addEventListener(event, preventEditing, {
-            capture: true,
-            passive: true,
-          })
-        }
+    if (appContainer.classList.contains("kef-doc")) {
+      for (const event of EVENTS_TO_PREVENT) {
+        parent.document.body.removeEventListener(event, preventEditing, {
+          capture: true,
+        })
       }
-    },
+      appContainer.classList.remove("kef-doc", "kef-doc-show-refs")
+      parent.document.body.style.height = null
+    } else {
+      await logseq.Editor.exitEditingMode()
+      parent.document.body.style.height = "auto"
+      appContainer.classList.add(
+        ...[
+          "kef-doc",
+          ...(logseq.settings?.showReferences ? ["kef-doc-show-refs"] : []),
+        ],
+      )
+      for (const event of EVENTS_TO_PREVENT) {
+        parent.document.body.addEventListener(event, preventEditing, {
+          capture: true,
+          passive: true,
+        })
+      }
+    }
+  },
 
-    startDownload() {
-      const doc = prepareDoc()
-      saveDoc(doc)
-    },
-  }
+  startDownload() {
+    const doc = prepareDoc()
+    saveDoc(doc)
+  },
 }
 
-function main() {
+async function main() {
+  uiModalOverlay = parent.document.querySelector(".ui__modal-overlay")
+
+  const { preferredLanguage: lang } = await logseq.App.getUserConfigs()
+
   logseq.provideStyle(`
     .kef-doc-container {
       margin: 0 5px;
@@ -268,13 +283,26 @@ function main() {
     <a class="kef-doc-icon" data-on-click="toggleDocView">${docSvg}</a></div>`,
   })
 
+  logseq.App.registerCommandPalette(
+    {
+      key: "toggle-doc-view",
+      label: lang === "zh-CN" ? "切换文档视图模式" : "Toggle document view",
+      keybinding: {
+        binding: "mod+shift+d",
+      },
+    },
+    (e) => {
+      model.toggleDocView()
+    },
+  )
+
   logseq.beforeunload(() => {
-    const appContainer = parent.document.getElementById("app-container")
-    for (const event of ["mousedown", "click", "keydown"]) {
+    for (const event of EVENTS_TO_PREVENT) {
       parent.document.body.removeEventListener(event, preventEditing, {
         capture: true,
       })
     }
+    const appContainer = parent.document.getElementById("app-container")
     appContainer.classList.remove("kef-doc")
     parent.document.body.style.overflow = null
   })
@@ -282,4 +310,4 @@ function main() {
   console.log("#doc loaded")
 }
 
-logseq.ready(createModel(), main).catch(console.error)
+logseq.ready(model, main).catch(console.error)
