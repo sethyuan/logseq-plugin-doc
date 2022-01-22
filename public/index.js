@@ -283,6 +283,9 @@ async function main() {
     .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
       display: block;
     }
+    .kef-doc .open-block-ref-link {
+      display: none;
+    }
   `)
 
   logseq.App.registerUIItem("toolbar", {
