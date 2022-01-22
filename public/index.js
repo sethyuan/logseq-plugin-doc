@@ -85,6 +85,14 @@ function prepareDoc() {
     ) {
       node.attributes.href.value = node.href
     } else if (
+      node.rel === "stylesheet" &&
+      node.attributes.href.value.startsWith("assets://")
+    ) {
+      node.attributes.href.value = node.attributes.href.value.replace(
+        "assets://",
+        "file://",
+      )
+    } else if (
       node.nodeName.toLowerCase() === "script" &&
       node.attributes.src.value.startsWith(".")
     ) {
