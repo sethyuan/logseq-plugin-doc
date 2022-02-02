@@ -168,6 +168,8 @@ async function main() {
   uiModalOverlay = parent.document.querySelector(".ui__modal-overlay")
 
   const { preferredLanguage: lang } = await logseq.App.getUserConfigs()
+  // Unindent all blocks by default.
+  const unindentLevel = Math.max(1, +logseq.settings?.unindentLevel || 999)
 
   logseq.provideStyle(`
     .kef-doc-container {
@@ -271,6 +273,15 @@ async function main() {
       margin-left: 29px !important;
     }
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control {
+      min-width: 11px;
+    }
+    .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container .block-children-container {
+      margin-left: 29px !important;
+    }
+    .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container div[blockid] > div:first-child > div:first-child {
+      display: flex;
+    }
+    .kef-doc #main-content-container div[level="${unindentLevel}"] div[blockid] .block-control {
       min-width: 11px;
     }
     .kef-doc #main-content-container .page.relative .references,

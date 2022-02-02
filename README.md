@@ -29,14 +29,17 @@ You can add a `#ul` tag to a block that is a bullet list, in this way, the plugi
 ```json
 {
   "disabled": false,
-  "showReferences": false
+  "showReferences": false,
+  "unindentLevel": 999
 }
 ```
 
 在 Logseq 的插件页面打开插件的配置后，有以下几项配置可供使用，请参照上方代码块进行设置（各项的默认值以体现在代码块中）：
 
 - `showReferences`: 是否在文档视图中显示有关联的页面。
+- `unindentLevel`: 设置要在文档视图中去掉多少级的缩进。最小为`1`。
 
 There are a couple of user settings available when you access the plugin settings from Logseq's plugins page. Please refer to the source block above (Default values are given in the source block).
 
 - `showReferences`: It defines whether or not to show the "Linked Reference" section.
+- `unindentLevel`: It defines how many levels you want to unindent while in the document view. Mininum is `1`.
