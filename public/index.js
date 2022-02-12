@@ -67,6 +67,8 @@ function preventEditing(e) {
 }
 
 function prepareDoc() {
+  const mainContent = parent.document.getElementById("main-content-container")
+
   const html = parent.document.documentElement.cloneNode()
   const head = parent.document.head.cloneNode(true)
   const body = parent.document.body.cloneNode()
@@ -74,9 +76,7 @@ function prepareDoc() {
   const themeDiv =
     parent.document.body.firstElementChild.firstElementChild.cloneNode()
   const appDiv = parent.document.getElementById("app-container").cloneNode()
-  const mainDiv = parent.document
-    .getElementById("main-content-container")
-    .cloneNode()
+  const mainDiv = mainContent.cloneNode()
 
   for (const node of head.children) {
     if (
@@ -105,9 +105,24 @@ function prepareDoc() {
   rootDiv.appendChild(themeDiv)
   themeDiv.appendChild(appDiv)
   appDiv.appendChild(mainDiv)
+
+  // Generate static images for canvases.
+  const canvases = mainContent.querySelectorAll("canvas")
+  for (const canvas of canvases) {
+    const img = parent.document.createElement("img")
+    img.src = canvas.toDataURL()
+    img.style.transform = "translateY(-100%)"
+    canvas.parentElement.append(img)
+  }
+
   mainDiv.innerHTML = parent.document.getElementById(
     "main-content-container",
   ).innerHTML
+
+  // Remove static images generated for canvases.
+  for (const canvas of canvases) {
+    canvas.parentElement.lastElementChild.remove()
+  }
 
   const imgs = mainDiv.querySelectorAll("img")
   for (const img of imgs) {
@@ -116,7 +131,7 @@ function prepareDoc() {
     }
   }
 
-  return html.outerHTML
+  return `<!DOCTYPE html>\n${html.outerHTML}`
 }
 
 function saveDoc(doc) {
@@ -263,16 +278,20 @@ async function main() {
     .kef-doc #main-content-container .block-children-left-border {
       display: none;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
       display: flex;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container,
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] > .block-children-container {
       margin-left: 36px !important;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container,
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid][data-refs-self*='"ol"'] > .block-children-container {
       margin-left: 29px !important;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control,
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .block-control {
       min-width: 11px;
     }
     .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container .block-children-container {
@@ -288,13 +307,23 @@ async function main() {
     .kef-doc #main-content-container .page.relative .page-hierachy {
       display: none;
     }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show,
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .control-show {
       display: none;
     }
     .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
       display: block;
     }
     .kef-doc .open-block-ref-link {
+      display: none;
+    }
+    .kef-doc .draw .my-1 {
+      display: none;
+    }
+    .kef-doc .excalidraw > .layer-ui__wrapper {
+      display: none;
+    }
+    .kef-doc .excalidraw > .excalidraw-textEditorContainer {
       display: none;
     }
   `)
