@@ -111,8 +111,8 @@ function prepareDoc() {
   for (const canvas of canvases) {
     const img = parent.document.createElement("img")
     img.src = canvas.toDataURL()
-    img.style.transform = "translateY(-100%)"
-    canvas.parentElement.append(img)
+    img.style.transform = "translateX(-100%)"
+    canvas.parentElement.parentElement.append(img)
   }
 
   mainDiv.innerHTML = parent.document.getElementById(
@@ -121,7 +121,7 @@ function prepareDoc() {
 
   // Remove static images generated for canvases.
   for (const canvas of canvases) {
-    canvas.parentElement.lastElementChild.remove()
+    canvas.parentElement.parentElement.lastElementChild.remove()
   }
 
   const imgs = mainDiv.querySelectorAll("img")
