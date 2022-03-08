@@ -16,9 +16,9 @@ You can toggle the document view with the command palette，It's shortcut key is
 
 ## 关于无序列表 (About bullet lists)
 
-你可以在无序列表的块上加`#ul`标签，这样插件就知道这是一个无序列表并配合排版了。
+你可以在无序列表的块上加`#.ul`标签，这样插件就知道这是一个无序列表并配合排版了。
 
-You can add a `#ul` tag to a block that is a bullet list, in this way, the plugin will know to format it accordingly.
+You can add a `#.ul` tag to a block that is a bullet list, in this way, the plugin will know to format it accordingly.
 
 示例 (Example)
 
