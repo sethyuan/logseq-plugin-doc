@@ -281,25 +281,25 @@ async function main() {
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
       display: flex;
     }
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container,
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] > .block-children-container,
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] > .block-children-container,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol"'] div[blockid] > .block-children-container {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] > .block-children-container {
       margin-left: 36px !important;
     }
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container,
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid][data-refs-self*='".ul"'] > .block-children-container,
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid][data-refs-self*='"ol"'] > .block-children-container,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol"'] div[blockid][data-refs-self*='".ol"'] > .block-children-container {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid][data-refs-self*='".ol'] > .block-children-container {
       margin-left: 29px !important;
     }
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control,
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] .block-control,
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .block-control,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol"'] div[blockid] .block-control {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .block-control {
       min-width: 11px;
     }
     .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container .block-children-container {
@@ -318,7 +318,7 @@ async function main() {
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show,
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] .control-show,
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .control-show,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol"'] div[blockid] .control-show {
+    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .control-show {
       display: none;
     }
     .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
