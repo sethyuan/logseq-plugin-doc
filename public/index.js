@@ -368,6 +368,27 @@ async function main() {
     parent.document.body.style.overflow = null
   })
 
+  logseq.useSettingsSchema([
+    {
+      key: "showReferences",
+      type: "boolean",
+      default: false,
+      description:
+        lang === "zh-CN"
+          ? "是否在文档视图中显示有关联的页面。"
+          : 'It defines whether or not to show the "Linked Reference" section.',
+    },
+    {
+      key: "unindentLevel",
+      type: "number",
+      default: 999,
+      description:
+        lang == "zh-CN"
+          ? "设置要在文档视图中去掉多少级的缩进。最小为1。"
+          : " It defines how many levels you want to unindent while in the document view. Mininum is 1.",
+    },
+  ])
+
   console.log("#doc loaded")
 }
 

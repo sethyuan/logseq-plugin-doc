@@ -1,6 +1,6 @@
 {
   "name": "logseq-plugin-doc",
-  "version": "1.3.4",
+  "version": "1.4.0",
   "main": "dist/index.html",
   "logseq": {
     "id": "_sethyuan-logseq-doc",
@@ -12,7 +12,7 @@
     "serve": "wmr serve"
   },
   "dependencies": {
-    "@logseq/libs": "^0.0.1-alpha.33"
+    "@logseq/libs": "^0.0.1-alpha.35"
   },
   "devDependencies": {
     "wmr": "^3.7.2"
