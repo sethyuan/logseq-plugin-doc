@@ -278,6 +278,12 @@ async function main() {
     .kef-doc #main-content-container .block-children-left-border {
       display: none;
     }
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+    .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control {
+      display: none;
+    }
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
@@ -288,7 +294,7 @@ async function main() {
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] > .block-children-container,
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] > .block-children-container,
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] > .block-children-container {
-      margin-left: 36px !important;
+      margin-left: 22px !important;
     }
     .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container,
     .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid][data-refs-self*='".ul"'] > .block-children-container,
