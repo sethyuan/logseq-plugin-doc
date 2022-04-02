@@ -251,6 +251,9 @@ async function main() {
     .kef-doc ~ .cp__sidebar-help-btn {
       display: none;
     }
+    .kef-doc .ls-page-title {
+      padding-left: 0;
+    }
     .kef-doc #main-content-container .page-blocks-inner {
       margin-left: 0 !important;
     }
