@@ -359,9 +359,11 @@ async function main() {
     {
       key: "toggle-doc-view",
       label: lang === "zh-CN" ? "切换文档视图模式" : "Toggle document view",
-      keybinding: {
-        binding: "mod+shift+d",
-      },
+      ...(logseq.settings?.shortcut && {
+        keybinding: {
+          binding: logseq.settings.shortcut,
+        },
+      }),
     },
     (e) => {
       model.toggleDocView()
@@ -397,6 +399,15 @@ async function main() {
         lang == "zh-CN"
           ? "设置要在文档视图中去掉多少级的缩进。最小为1。"
           : " It defines how many levels you want to unindent while in the document view. Mininum is 1.",
+    },
+    {
+      key: "shortcut",
+      type: "string",
+      default: "mod+shift+d",
+      description:
+        lang == "zh-CN"
+          ? "设置切换文档视图状态的快捷键。"
+          : "It defines a shortcut for toggling the document view.",
     },
   ])
 
