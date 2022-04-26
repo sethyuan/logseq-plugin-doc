@@ -75,6 +75,8 @@ function prepareDoc() {
   const rootDiv = parent.document.body.firstElementChild.cloneNode()
   const themeDiv =
     parent.document.body.firstElementChild.firstElementChild.cloneNode()
+  const themeInnerDiv =
+    parent.document.body.firstElementChild.firstElementChild.firstElementChild.cloneNode()
   const appDiv = parent.document.getElementById("app-container").cloneNode()
   const mainDiv = mainContent.cloneNode()
 
@@ -103,7 +105,8 @@ function prepareDoc() {
   html.appendChild(body)
   body.appendChild(rootDiv)
   rootDiv.appendChild(themeDiv)
-  themeDiv.appendChild(appDiv)
+  themeDiv.appendChild(themeInnerDiv)
+  themeInnerDiv.appendChild(appDiv)
   appDiv.appendChild(mainDiv)
 
   // Generate static images for canvases.
