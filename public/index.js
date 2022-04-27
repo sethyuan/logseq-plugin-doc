@@ -354,8 +354,12 @@ async function main() {
 
   logseq.App.registerUIItem("toolbar", {
     key: `kef-doc-doc`,
-    template: `<div class="kef-doc-container"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload">${downloadSvg}</a>
-    <a class="kef-doc-icon" data-on-click="toggleDocView">${docSvg}</a></div>`,
+    template: `<div class="kef-doc-container"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload" title="${
+      lang === "zh-CN" ? "导出页面" : "Export page"
+    }">${downloadSvg}</a>
+    <a class="kef-doc-icon" data-on-click="toggleDocView" title="${
+      lang === "zh-CN" ? "开启关闭文档视图" : "Toggle document view"
+    }">${docSvg}</a></div>`,
   })
 
   logseq.App.registerCommandPalette(
