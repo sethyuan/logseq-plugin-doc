@@ -53,6 +53,8 @@ function preventEditing(e) {
     // Let go of tocgen links.
     if (path[i].classList?.contains("kef-tocgen-page")) return
     if (path[i].classList?.contains("kef-tocgen-block")) return
+    // Let go of CodeMirror code blocks.
+    if (path[i].classList?.contains("CodeMirror")) return
 
     if (path[i].id === "left-container") {
       if (path[i - 1]?.id === "main-container") {
