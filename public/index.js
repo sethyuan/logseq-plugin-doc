@@ -148,6 +148,189 @@ function saveDoc(doc) {
   link.click()
 }
 
+function injectStyles() {
+  // Unindent all blocks by default.
+  const unindentLevel =
+    +logseq.settings?.unindentLevel === 0
+      ? 0
+      : Math.max(0, +logseq.settings?.unindentLevel || 999)
+
+  logseq.provideStyle({
+    key: "kef-doc-base",
+    style: `
+      .kef-doc-container {
+        margin: 0 5px;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+      }
+      .kef-doc-icon {
+        display: block;
+        width: 30px;
+        height: 30px;
+        padding: 7px 5px 4px;
+        border-radius: 4px;
+      }
+      .kef-doc-svg {
+        width: 20px;
+        height: 20px;
+      }
+      .kef-doc-svg path,
+      .kef-doc-svg polygon,
+      .kef-doc-svg rect {
+        fill: var(--ls-icon-color);
+      }
+      .kef-doc-svg circle {
+        stroke: var(--ls-icon-color);
+        stroke-width: 1;
+      }
+      .kef-doc-icon:hover {
+        background: var(--ls-tertiary-background-color);
+      }
+      .kef-doc-icon:hover .kef-doc-svg path,
+      .kef-doc-icon:hover .kef-doc-svg polygon,
+      .kef-doc-icon:hover .kef-doc-svg rect {
+        fill: var(--ls-primary-text-color);
+      }
+      .kef-doc-icon:hover .kef-doc-svg circle {
+        stroke: var(--ls-primary-text-color);
+      }
+      .kef-doc .kef-doc-icon:not(.kef-doc-download) path,
+      .kef-doc .kef-doc-icon:not(.kef-doc-download) polygon,
+      .kef-doc .kef-doc-icon:not(.kef-doc-download) react {
+        fill: var(--ls-link-ref-text-color);
+      }
+      .kef-doc .kef-doc-icon:not(.kef-doc-download) circle {
+        stroke: var(--ls-link-ref-text-color);
+      }
+      .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) path,
+      .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) polygon,
+      .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) react {
+        fill: var(--ls-link-ref-text-color);
+      }
+      .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) circle {
+        stroke: var(--ls-link-ref-text-color);
+      }
+      .kef-doc-download {
+        margin-right: 6px;
+        display: none;
+      }
+      .kef-doc .kef-doc-download {
+        display: inline-block;
+      }
+
+      .kef-doc ~ .cp__sidebar-help-btn {
+        display: none;
+      }
+      .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
+        display: block;
+      }
+      .kef-doc .open-block-ref-link {
+        display: none;
+      }
+      .kef-doc .draw .my-1 {
+        display: none;
+      }
+      .kef-doc .excalidraw > .layer-ui__wrapper {
+        display: none;
+      }
+      .kef-doc .excalidraw > .excalidraw-textEditorContainer {
+        display: none;
+      }
+      .kef-doc #main-content-container .page.relative .references,
+      .kef-doc #main-content-container .page.relative .page-hierarchy {
+        display: none;
+      }
+      .kef-doc #main-content-container .block-children-left-border {
+        display: none;
+      }
+      .kef-doc #main-content-container .block-children {
+        border-left: 0 !important;
+      }
+    `,
+  })
+  if (unindentLevel > 0) {
+    logseq.provideStyle({
+      key: "kef-doc-unindent",
+      style: `
+        .kef-doc .ls-page-title {
+          padding-left: 0;
+        }
+        .kef-doc #main-content-container .page-blocks-inner {
+          margin-left: 0 !important;
+        }
+        .kef-doc #main-content-container .page.relative > .relative:first-child > div:first-child > div.mb-4 {
+          display: none;
+        }
+        .kef-doc #main-content-container .block-content {
+          margin-bottom: 0.4em;
+        }
+        .kef-doc #main-content-container span.inline {
+          line-height: 1.6;
+        }
+        .kef-doc #main-content-container .tag {
+          display: none !important;
+        }
+        .kef-doc #main-content-container div[blockid][haschild] > div:first-child > div:first-child {
+          display: none;
+        }
+        .kef-doc #main-content-container .block-children-container {
+          margin-left: 0 !important;
+        }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control {
+          display: none;
+        }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
+          display: flex;
+        }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] > .block-children-container {
+          margin-left: 22px !important;
+        }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] > .block-children-container {
+          margin-left: 29px !important;
+        }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid][data-refs-self*='".ul"'] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid][data-refs-self*='"ol"'] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid][data-refs-self*='".ol'] > .block-children-container {
+          margin-left: 29px !important;
+        }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] .block-control,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .block-control,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .block-control {
+          min-width: 11px;
+        }
+        .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container .block-children-container {
+          margin-left: 29px !important;
+        }
+        .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container div[blockid] > div:first-child > div:first-child {
+          display: flex;
+        }
+        .kef-doc #main-content-container div[level="${unindentLevel}"] div[blockid] .block-control {
+          min-width: 11px;
+        }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] .control-show,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .control-show,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .control-show {
+          display: none;
+        }
+      `,
+    })
+  } else {
+    logseq.provideStyle({ key: "kef-doc-unindent", style: "/**/" })
+  }
+}
+
 const model = {
   async toggleDocView() {
     const appContainer = parent.document.getElementById("app-container")
@@ -188,171 +371,8 @@ async function main() {
   uiModalOverlay = parent.document.querySelector(".ui__modal-overlay")
 
   const { preferredLanguage: lang } = await logseq.App.getUserConfigs()
-  // Unindent all blocks by default.
-  const unindentLevel = Math.max(1, +logseq.settings?.unindentLevel || 999)
 
-  logseq.provideStyle(`
-    .kef-doc-container {
-      margin: 0 5px;
-      display: flex;
-      flex-flow: row nowrap;
-      align-items: center;
-    }
-    .kef-doc-icon {
-      display: block;
-      width: 30px;
-      height: 30px;
-      padding: 7px 5px 4px;
-      border-radius: 4px;
-    }
-    .kef-doc-svg {
-      width: 20px;
-      height: 20px;
-    }
-    .kef-doc-svg path,
-    .kef-doc-svg polygon,
-    .kef-doc-svg rect {
-      fill: var(--ls-icon-color);
-    }
-    .kef-doc-svg circle {
-      stroke: var(--ls-icon-color);
-      stroke-width: 1;
-    }
-    .kef-doc-icon:hover {
-      background: var(--ls-tertiary-background-color);
-    }
-    .kef-doc-icon:hover .kef-doc-svg path,
-    .kef-doc-icon:hover .kef-doc-svg polygon,
-    .kef-doc-icon:hover .kef-doc-svg rect {
-      fill: var(--ls-primary-text-color);
-    }
-    .kef-doc-icon:hover .kef-doc-svg circle {
-      stroke: var(--ls-primary-text-color);
-    }
-    .kef-doc .kef-doc-icon:not(.kef-doc-download) path,
-    .kef-doc .kef-doc-icon:not(.kef-doc-download) polygon,
-    .kef-doc .kef-doc-icon:not(.kef-doc-download) react {
-      fill: var(--ls-link-ref-text-color);
-    }
-    .kef-doc .kef-doc-icon:not(.kef-doc-download) circle {
-      stroke: var(--ls-link-ref-text-color);
-    }
-    .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) path,
-    .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) polygon,
-    .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) react {
-      fill: var(--ls-link-ref-text-color);
-    }
-    .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) circle {
-      stroke: var(--ls-link-ref-text-color);
-    }
-    .kef-doc-download {
-      margin-right: 6px;
-      display: none;
-    }
-    .kef-doc .kef-doc-download {
-      display: inline-block;
-    }
-
-    .kef-doc ~ .cp__sidebar-help-btn {
-      display: none;
-    }
-    .kef-doc .ls-page-title {
-      padding-left: 0;
-    }
-    .kef-doc #main-content-container .page-blocks-inner {
-      margin-left: 0 !important;
-    }
-    .kef-doc #main-content-container .page.relative > .relative:first-child > div:first-child > div.mb-4 {
-      display: none;
-    }
-    .kef-doc #main-content-container .block-content {
-      margin-bottom: 0.4em;
-    }
-    .kef-doc #main-content-container span.inline {
-      line-height: 1.6;
-    }
-    .kef-doc #main-content-container .tag {
-      display: none !important;
-    }
-    .kef-doc #main-content-container div[blockid][haschild] > div:first-child > div:first-child {
-      display: none;
-    }
-    .kef-doc #main-content-container .block-children {
-      border-left: 0 !important;
-    }
-    .kef-doc #main-content-container .block-children-container {
-      margin-left: 0 !important;
-    }
-    .kef-doc #main-content-container .block-children-left-border {
-      display: none;
-    }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control {
-      display: none;
-    }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
-      display: flex;
-    }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] > .block-children-container {
-      margin-left: 22px !important;
-    }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] > .block-children-container,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] > .block-children-container {
-      margin-left: 29px !important;
-    }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid][data-refs-self*='".ul"'] > .block-children-container,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid][data-refs-self*='"ol"'] > .block-children-container,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid][data-refs-self*='".ol'] > .block-children-container {
-      margin-left: 29px !important;
-    }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] .block-control,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .block-control,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .block-control {
-      min-width: 11px;
-    }
-    .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container .block-children-container {
-      margin-left: 29px !important;
-    }
-    .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container div[blockid] > div:first-child > div:first-child {
-      display: flex;
-    }
-    .kef-doc #main-content-container div[level="${unindentLevel}"] div[blockid] .block-control {
-      min-width: 11px;
-    }
-    .kef-doc #main-content-container .page.relative .references,
-    .kef-doc #main-content-container .page.relative .page-hierachy {
-      display: none;
-    }
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] .control-show,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .control-show,
-    .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .control-show {
-      display: none;
-    }
-    .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
-      display: block;
-    }
-    .kef-doc .open-block-ref-link {
-      display: none;
-    }
-    .kef-doc .draw .my-1 {
-      display: none;
-    }
-    .kef-doc .excalidraw > .layer-ui__wrapper {
-      display: none;
-    }
-    .kef-doc .excalidraw > .excalidraw-textEditorContainer {
-      display: none;
-    }
-  `)
+  injectStyles()
 
   logseq.App.registerUIItem("toolbar", {
     key: `kef-doc-doc`,
@@ -406,8 +426,8 @@ async function main() {
       default: 999,
       description:
         lang == "zh-CN"
-          ? "设置要在文档视图中去掉多少级的缩进。最小为1。"
-          : " It defines how many levels you want to unindent while in the document view. Mininum is 1.",
+          ? "设置要在文档视图中去掉多少级的缩进。最小为0。"
+          : "It defines how many levels you want to unindent while in the document view. Mininum is 0.",
     },
     {
       key: "shortcut",
@@ -419,6 +439,10 @@ async function main() {
           : "It defines a shortcut for toggling the document view.",
     },
   ])
+
+  logseq.onSettingsChanged((current, old) => {
+    injectStyles()
+  })
 
   console.log("#doc loaded")
 }
