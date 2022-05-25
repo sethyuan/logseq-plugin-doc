@@ -286,28 +286,26 @@ function injectStyles() {
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested'] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
           display: flex;
         }
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] > .block-children-container,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] > .block-children-container {
           margin-left: 22px !important;
         }
-        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] > .block-children-container,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] > .block-children-container {
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
           margin-left: 29px !important;
         }
-        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid][data-refs-self*='"ul"'] > .block-children-container,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid][data-refs-self*='".ul"'] > .block-children-container,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid][data-refs-self*='"ol"'] > .block-children-container,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid][data-refs-self*='".ol'] > .block-children-container {
-          margin-left: 29px !important;
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
+          margin-left: 0 !important;
         }
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ul"'] div[blockid] .block-control,
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .block-control,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .block-control {
-          min-width: 11px;
+          min-width: 0;
         }
         .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container .block-children-container {
           margin-left: 29px !important;
