@@ -238,8 +238,12 @@ function injectStyles() {
         display: none;
       }
       .kef-doc #main-content-container .page.relative .references,
-      .kef-doc #main-content-container .page.relative .page-hierarchy {
+      .kef-doc #main-content-container .page.relative .page-hierarchy,
+      .kef-doc #main-content-container .page.relative .lazy-visibility {
         display: none;
+      }
+      .kef-doc .cp__sidebar-main-content > div {
+        margin-bottom: 0 !important;
       }
       .kef-doc #main-content-container .block-children-left-border {
         display: none;
