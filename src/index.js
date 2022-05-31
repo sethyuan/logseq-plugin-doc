@@ -1,4 +1,6 @@
 import "@logseq/libs"
+import { setup, t } from "logseq-l10n"
+import zhCN from "./translations/zh-CN.json"
 
 const docSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20">
 <path fill="none" d="M19.471,8.934L18.883,8.34c-2.096-2.14-4.707-4.804-8.903-4.804c-4.171,0-6.959,2.83-8.996,4.897L0.488,8.934c-0.307,0.307-0.307,0.803,0,1.109l0.401,0.403c2.052,2.072,4.862,4.909,9.091,4.909c4.25,0,6.88-2.666,8.988-4.807l0.503-0.506C19.778,9.737,19.778,9.241,19.471,8.934z M9.98,13.787c-3.493,0-5.804-2.254-7.833-4.3C4.182,7.424,6.493,5.105,9.98,5.105c3.536,0,5.792,2.301,7.784,4.332l0.049,0.051C15.818,11.511,13.551,13.787,9.98,13.787z"></path>
@@ -370,26 +372,32 @@ const model = {
 }
 
 async function main() {
-  uiModalOverlay = parent.document.querySelector(".ui__modal-overlay")
+  const l10nSetup = setup({
+    urlTemplate:
+      "https://raw.githubusercontent.com/sethyuan/logseq-plugin-doc/master/src/translations/${locale}.json",
+    builtinTranslations: { "zh-CN": zhCN },
+  })
 
-  const { preferredLanguage: lang } = await logseq.App.getUserConfigs()
+  uiModalOverlay = parent.document.querySelector(".ui__modal-overlay")
 
   injectStyles()
 
+  await l10nSetup
+
   logseq.App.registerUIItem("toolbar", {
     key: `kef-doc-doc`,
-    template: `<div class="kef-doc-container"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload" title="${
-      lang === "zh-CN" ? "导出页面" : "Export page"
-    }">${downloadSvg}</a>
-    <a class="kef-doc-icon" data-on-click="toggleDocView" title="${
-      lang === "zh-CN" ? "开启关闭文档视图" : "Toggle document view"
-    }">${docSvg}</a></div>`,
+    template: `<div class="kef-doc-container"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload" title="${t(
+      "Export page",
+    )}">${downloadSvg}</a>
+    <a class="kef-doc-icon" data-on-click="toggleDocView" title="${t(
+      "Toggle document view",
+    )}">${docSvg}</a></div>`,
   })
 
   logseq.App.registerCommandPalette(
     {
       key: "toggle-doc-view",
-      label: lang === "zh-CN" ? "切换文档视图模式" : "Toggle document view",
+      label: t("Toggle document view"),
       ...(logseq.settings?.shortcut && {
         keybinding: {
           binding: logseq.settings.shortcut,
@@ -417,28 +425,23 @@ async function main() {
       key: "showReferences",
       type: "boolean",
       default: false,
-      description:
-        lang === "zh-CN"
-          ? "是否在文档视图中显示有关联的页面。"
-          : 'It defines whether or not to show the "Linked Reference" section.',
+      description: t(
+        'It defines whether or not to show the "Linked Reference" section.',
+      ),
     },
     {
       key: "unindentLevel",
       type: "number",
       default: 999,
-      description:
-        lang == "zh-CN"
-          ? "设置要在文档视图中去掉多少级的缩进。最小为0。"
-          : "It defines how many levels you want to unindent while in the document view. Mininum is 0.",
+      description: t(
+        "It defines how many levels you want to unindent while in the document view. Mininum is 0.",
+      ),
     },
     {
       key: "shortcut",
       type: "string",
       default: "mod+shift+d",
-      description:
-        lang == "zh-CN"
-          ? "设置切换文档视图状态的快捷键。"
-          : "It defines a shortcut for toggling the document view.",
+      description: t("It defines a shortcut for toggling the document view."),
     },
   ])
 

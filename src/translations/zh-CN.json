@@ -1,3 +1,7 @@
 {
-  "Export page": "导出页面"
+  "Export page": "导出页面",
+  "Toggle document view": "开启关闭文档视图",
+  "It defines whether or not to show the \"Linked Reference\" section.": "是否在文档视图中显示有关联的页面。",
+  "It defines how many levels you want to unindent while in the document view. Mininum is 0.": "设置要在文档视图中去掉多少级的缩进。最小为0。",
+  "It defines a shortcut for toggling the document view.": "设置切换文档视图状态的快捷键。"
 }
