@@ -161,18 +161,18 @@ function injectStyles() {
     key: "kef-doc-base",
     style: `
       .kef-doc-container {
-        margin: 0 5px;
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
       }
       .kef-doc-icon {
-        display: block;
-        width: 30px;
-        height: 30px;
-        padding: 7px 5px 4px;
+        display: flex;
+        width: 32px;
+        height: 32px;
         border-radius: 4px;
-      }
+        justify-content: center;
+        align-items: center;
+    }
       .kef-doc-svg {
         width: 20px;
         height: 20px;
@@ -214,11 +214,10 @@ function injectStyles() {
         stroke: var(--ls-link-ref-text-color);
       }
       .kef-doc-download {
-        margin-right: 6px;
         display: none;
       }
       .kef-doc .kef-doc-download {
-        display: inline-block;
+        display: flex;
       }
 
       .kef-doc ~ .cp__sidebar-help-btn {
