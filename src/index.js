@@ -387,7 +387,7 @@ async function main() {
   await l10nSetup
 
   logseq.App.registerUIItem("toolbar", {
-    key: `kef-doc-doc`,
+    key: t("doc-view-exporter"),
     template: `<div class="kef-doc-container"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload" title="${t(
       "Export page",
     )}">${downloadSvg}</a>
