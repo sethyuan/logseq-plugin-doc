@@ -252,6 +252,9 @@ function injectStyles() {
       .kef-doc #main-content-container .block-children {
         border-left: 0 !important;
       }
+      .kef-doc #main-content-container .block-content-wrapper > .flex-row > *:not(:first-child) {
+        display: none;
+      }
     `,
   })
   if (unindentLevel > 0) {
