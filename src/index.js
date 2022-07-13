@@ -70,7 +70,8 @@ function preventEditing(e) {
   }
 }
 
-function prepareDoc() {
+async function prepareDoc() {
+  const graphName = (await logseq.App.getCurrentGraph()).name
   const mainContent = parent.document.getElementById("main-content-container")
 
   const html = parent.document.documentElement.cloneNode()
@@ -138,6 +139,22 @@ function prepareDoc() {
     }
   }
 
+  const pageA = mainDiv.querySelector("a.page-title")
+  pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(pageA.firstElementChild.dataset.ref)}`
+
+  const pageRefs = mainDiv.querySelectorAll("a[data-ref]")
+  for (const a of pageRefs) {
+    a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(a.dataset.ref)}`
+  }
+
+  const blockRefs = mainDiv.querySelectorAll(".block-ref > [blockid]")
+  for (const div of blockRefs) {
+    const a = parent.document.createElement("a")
+    a.href = `logseq://graph/${graphName}?block-id=${div.getAttribute("blockid")}`
+    div.replaceWith(a)
+    a.appendChild(div)
+  }
+
   return `<!DOCTYPE html>\n${html.outerHTML}`
 }
 
@@ -172,7 +189,7 @@ function injectStyles() {
         border-radius: 4px;
         justify-content: center;
         align-items: center;
-    }
+      }
       .kef-doc-svg {
         width: 20px;
         height: 20px;
@@ -223,6 +240,7 @@ function injectStyles() {
       .kef-doc ~ .cp__sidebar-help-btn {
         display: none;
       }
+      .kef-doc.kef-doc-show-refs #main-content-container .page.relative .lazy-visibility,
       .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
         display: block;
       }
@@ -367,8 +385,8 @@ const model = {
     }
   },
 
-  startDownload() {
-    const doc = prepareDoc()
+  async startDownload() {
+    const doc = await prepareDoc()
     saveDoc(doc)
   },
 }
