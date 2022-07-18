@@ -24,22 +24,8 @@ You can add a `#.ul` tag to a block that is a bullet list, in this way, the plug
 
 ![Bullet List](./bullets.png)
 
-## 用户配置 (User configs)
+## Logseq 新版本中的 Linked References (Linked References in newer versions of Logseq)
 
-```json
-{
-  "disabled": false,
-  "showReferences": false,
-  "unindentLevel": 999
-}
-```
+新版本中 Linked References 区域是动态加载的，如果你想要在导出中看到这块的内容的话你需要将页面滚动到这部分，确保这个区域内的所有数据都是被渲染了的。
 
-在 Logseq 的插件页面打开插件的配置后，有以下几项配置可供使用，请参照上方代码块进行设置（各项的默认值以体现在代码块中）：
-
-- `showReferences`: 是否在文档视图中显示有关联的页面。
-- `unindentLevel`: 设置要在文档视图中去掉多少级的缩进。最小为`1`。
-
-There are a couple of user settings available when you access the plugin settings from Logseq's plugins page. Please refer to the source block above (Default values are given in the source block).
-
-- `showReferences`: It defines whether or not to show the "Linked Reference" section.
-- `unindentLevel`: It defines how many levels you want to unindent while in the document view. Mininum is `1`.
+Linked References are dynamically loaded in newer versions of Logseq, be sure to scroll to this part of the page and all its content is loaded and displayed if you want to have this section exported.

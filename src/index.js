@@ -85,6 +85,29 @@ async function prepareDoc() {
   const appDiv = parent.document.getElementById("app-container").cloneNode()
   const mainDiv = mainContent.cloneNode()
 
+  const tocgenScript = parent.document.createElement("script")
+  tocgenScript.innerHTML = `
+    function gotoBlock(uuid) {
+      const el = document.querySelector(\`[class~="\${uuid}"]\`)
+      if (el) {
+        el.scrollIntoView()
+      } else {
+        window.open(\`logseq://graph/${graphName}?block-id=\${uuid}\`, "_self")
+      }
+    }
+    function gotoPage(name) {
+      window.open(\`logseq://graph/${graphName}?page=\${name}\`, "_self")
+    }
+    const blockRefs = document.querySelectorAll(".kef-tocgen-block [data-ref], .kef-tocgen-page .block[data-ref]")
+    for (const blockRef of blockRefs) {
+      blockRef.addEventListener("click", () => gotoBlock(blockRef.dataset.ref))
+    }
+    const pageRefs = document.querySelectorAll(".kef-tocgen-page .page[data-ref]")
+    for (const pageRef of pageRefs) {
+      pageRef.addEventListener("click", () => gotoPage(pageRef.dataset.ref))
+    }
+  `
+
   for (const node of head.children) {
     if (
       node.rel === "stylesheet" &&
@@ -109,6 +132,7 @@ async function prepareDoc() {
   html.appendChild(head)
   html.appendChild(body)
   body.appendChild(rootDiv)
+  body.appendChild(tocgenScript)
   rootDiv.appendChild(themeDiv)
   themeDiv.appendChild(themeInnerDiv)
   themeInnerDiv.appendChild(appDiv)
@@ -140,17 +164,23 @@ async function prepareDoc() {
   }
 
   const pageA = mainDiv.querySelector("a.page-title")
-  pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(pageA.firstElementChild.dataset.ref)}`
+  pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+    pageA.firstElementChild.dataset.ref,
+  )}`
 
   const pageRefs = mainDiv.querySelectorAll("a[data-ref]")
   for (const a of pageRefs) {
-    a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(a.dataset.ref)}`
+    a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+      a.dataset.ref,
+    )}`
   }
 
   const blockRefs = mainDiv.querySelectorAll(".block-ref > [blockid]")
   for (const div of blockRefs) {
     const a = parent.document.createElement("a")
-    a.href = `logseq://graph/${graphName}?block-id=${div.getAttribute("blockid")}`
+    a.href = `logseq://graph/${graphName}?block-id=${div.getAttribute(
+      "blockid",
+    )}`
     div.replaceWith(a)
     a.appendChild(div)
   }
@@ -271,6 +301,9 @@ function injectStyles() {
         border-left: 0 !important;
       }
       .kef-doc #main-content-container .block-content-wrapper > .flex-row > *:not(:first-child) {
+        display: none;
+      }
+      .kef-doc #main-content-container .kef-tocgen-to {
         display: none;
       }
     `,
