@@ -85,29 +85,6 @@ async function prepareDoc() {
   const appDiv = parent.document.getElementById("app-container").cloneNode()
   const mainDiv = mainContent.cloneNode()
 
-  const tocgenScript = parent.document.createElement("script")
-  tocgenScript.innerHTML = `
-    function gotoBlock(uuid) {
-      const el = document.querySelector(\`[class~="\${uuid}"]\`)
-      if (el) {
-        el.scrollIntoView()
-      } else {
-        window.open(\`logseq://graph/${graphName}?block-id=\${uuid}\`, "_self")
-      }
-    }
-    function gotoPage(name) {
-      window.open(\`logseq://graph/${graphName}?page=\${name}\`, "_self")
-    }
-    const blockRefs = document.querySelectorAll(".kef-tocgen-block [data-ref], .kef-tocgen-page .block[data-ref]")
-    for (const blockRef of blockRefs) {
-      blockRef.addEventListener("click", () => gotoBlock(blockRef.dataset.ref))
-    }
-    const pageRefs = document.querySelectorAll(".kef-tocgen-page .page[data-ref]")
-    for (const pageRef of pageRefs) {
-      pageRef.addEventListener("click", () => gotoPage(pageRef.dataset.ref))
-    }
-  `
-
   for (const node of head.children) {
     if (
       node.rel === "stylesheet" &&
@@ -132,7 +109,6 @@ async function prepareDoc() {
   html.appendChild(head)
   html.appendChild(body)
   body.appendChild(rootDiv)
-  body.appendChild(tocgenScript)
   rootDiv.appendChild(themeDiv)
   themeDiv.appendChild(themeInnerDiv)
   themeInnerDiv.appendChild(appDiv)
@@ -163,6 +139,7 @@ async function prepareDoc() {
     }
   }
 
+  // Handle links
   const pageA = mainDiv.querySelector("a.page-title")
   pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
     pageA.firstElementChild.dataset.ref,
@@ -185,7 +162,45 @@ async function prepareDoc() {
     a.appendChild(div)
   }
 
+  prepareForTocGen(graphName, mainDiv)
+
   return `<!DOCTYPE html>\n${html.outerHTML}`
+}
+
+function prepareForTocGen(graphName, mainDiv) {
+  const blocks = mainDiv.querySelectorAll(".ls-block")
+  for (const block of blocks) {
+    const anchor = parent.document.createElement("a")
+    anchor.name = block.getAttribute("blockid")
+    block.insertAdjacentElement("beforebegin", anchor)
+  }
+
+  const tocBlockRefs = mainDiv.querySelectorAll(
+    ".kef-tocgen-block [data-ref], .kef-tocgen-page .block[data-ref]",
+  )
+  for (const span of tocBlockRefs) {
+    const destEl = mainDiv.querySelector(`[class~="${span.dataset.ref}"]`)
+    const a = parent.document.createElement("a")
+    if (destEl) {
+      a.href = `#${span.dataset.ref}`
+    } else {
+      a.href = `logseq://graph/${graphName}?block-id=${span.dataset.ref}`
+    }
+    span.replaceWith(a)
+    a.appendChild(span)
+  }
+
+  const tocPageRefs = mainDiv.querySelectorAll(
+    ".kef-tocgen-page .page[data-ref]",
+  )
+  for (const span of tocPageRefs) {
+    const a = parent.document.createElement("a")
+    a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+      span.dataset.ref,
+    )}`
+    span.replaceWith(a)
+    a.appendChild(span)
+  }
 }
 
 function saveDoc(doc) {
