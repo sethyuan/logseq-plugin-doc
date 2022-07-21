@@ -168,8 +168,22 @@ async function prepareDoc() {
 }
 
 function prepareForTocGen(graphName, mainDiv) {
+  prepareTocs(mainDiv)
   prepareBlockRefs(graphName, mainDiv)
   preparePageRefs(graphName, mainDiv)
+}
+
+function prepareTocs(mainDiv) {
+  const tocRenderers = mainDiv.querySelectorAll(
+    "[id^='logseq-tocgen--toc-slot']",
+  )
+
+  for (const renderer of tocRenderers) {
+    const ancestor = renderer.closest("[level]")
+    if (ancestor) {
+      ancestor.replaceWith(renderer)
+    }
+  }
 }
 
 function prepareBlockRefs(graphName, mainDiv) {
