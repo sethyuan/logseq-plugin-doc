@@ -168,16 +168,19 @@ async function prepareDoc() {
 }
 
 function prepareForTocGen(graphName, mainDiv) {
-  const blocks = mainDiv.querySelectorAll(".ls-block")
-  for (const block of blocks) {
-    const anchor = parent.document.createElement("a")
-    anchor.name = block.getAttribute("blockid")
-    block.insertAdjacentElement("beforebegin", anchor)
-  }
+  prepareBlockRefs(graphName, mainDiv)
+  preparePageRefs(graphName, mainDiv)
+}
 
+function prepareBlockRefs(graphName, mainDiv) {
   const tocBlockRefs = mainDiv.querySelectorAll(
     ".kef-tocgen-block [data-ref], .kef-tocgen-page .block[data-ref]",
   )
+
+  if (tocBlockRefs.length > 0) {
+    writeAnchors(mainDiv)
+  }
+
   for (const span of tocBlockRefs) {
     const destEl = mainDiv.querySelector(`[class~="${span.dataset.ref}"]`)
     const a = parent.document.createElement("a")
@@ -189,10 +192,23 @@ function prepareForTocGen(graphName, mainDiv) {
     span.replaceWith(a)
     a.appendChild(span)
   }
+}
 
+function writeAnchors(mainDiv) {
+  const blocks = mainDiv.querySelectorAll(".ls-block")
+
+  for (const block of blocks) {
+    const anchor = parent.document.createElement("a")
+    anchor.name = block.getAttribute("blockid")
+    block.insertAdjacentElement("beforebegin", anchor)
+  }
+}
+
+function preparePageRefs(graphName, mainDiv) {
   const tocPageRefs = mainDiv.querySelectorAll(
     ".kef-tocgen-page .page[data-ref]",
   )
+
   for (const span of tocPageRefs) {
     const a = parent.document.createElement("a")
     a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
