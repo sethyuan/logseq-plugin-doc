@@ -12,6 +12,8 @@ const downloadSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20">
 <path fill="none" d="M17.737,9.815c-0.327,0-0.592,0.265-0.592,0.591v2.903H2.855v-2.903c0-0.327-0.264-0.591-0.591-0.591c-0.327,0-0.591,0.265-0.591,0.591V13.9c0,0.328,0.264,0.592,0.591,0.592h15.473c0.327,0,0.591-0.264,0.591-0.592v-3.494C18.328,10.08,18.064,9.815,17.737,9.815z"></path>
 </svg>`
 
+const backTopSvg = `<svg class="kef-doc-inline-icon" t="1658397135915" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1599" width="200" height="200"><path d="M904 692c0 8.189-3.124 16.379-9.372 22.628-12.497 12.496-32.759 12.496-45.256 0L512 377.255 174.628 714.628c-12.497 12.496-32.758 12.496-45.255 0-12.497-12.498-12.497-32.758 0-45.256l360-360c12.497-12.496 32.758-12.496 45.255 0l360 360C900.876 675.621 904 683.811 904 692z" p-id="1600"></path></svg>`
+
 const EVENTS_TO_PREVENT = [
   "mousedown",
   "mousemove",
@@ -182,6 +184,9 @@ function prepareTocs(mainDiv) {
     const ancestor = renderer.closest("[level]")
     if (ancestor) {
       ancestor.replaceWith(renderer)
+      const anchor = parent.document.createElement("a")
+      anchor.name = renderer.id
+      renderer.insertAdjacentElement("beforebegin", anchor)
     }
   }
 }
@@ -192,7 +197,7 @@ function prepareBlockRefs(graphName, mainDiv) {
   )
 
   if (tocBlockRefs.length > 0) {
-    writeAnchors(mainDiv)
+    writeAnchors(tocBlockRefs, mainDiv)
   }
 
   for (const span of tocBlockRefs) {
@@ -208,10 +213,24 @@ function prepareBlockRefs(graphName, mainDiv) {
   }
 }
 
-function writeAnchors(mainDiv) {
-  const blocks = mainDiv.querySelectorAll(".ls-block")
+function writeAnchors(blockRefs, mainDiv) {
+  for (const blockRef of blockRefs) {
+    const toc = blockRef.closest("[id^='logseq-tocgen--toc-slot']")
+    const block = mainDiv.querySelector(
+      `.block-content[blockid="${blockRef.dataset.ref}"]`,
+    )
 
-  for (const block of blocks) {
+    if (toc) {
+      const backToToc = parent.document.createElement("a")
+      backToToc.innerHTML = backTopSvg
+      backToToc.style.marginLeft = "5px"
+      backToToc.setAttribute("href", `#${toc.id}`)
+
+      block.appendChild(backToToc)
+      block.style.display = "inline-flex"
+      block.style.alignItems = "center"
+    }
+
     const anchor = parent.document.createElement("a")
     anchor.name = block.getAttribute("blockid")
     block.insertAdjacentElement("beforebegin", anchor)
@@ -310,6 +329,11 @@ function injectStyles() {
       }
       .kef-doc .kef-doc-download {
         display: flex;
+      }
+      .kef-doc-inline-icon {
+        width: 15px;
+        height: 15px;
+        fill: gray;
       }
 
       .kef-doc ~ .cp__sidebar-help-btn {
