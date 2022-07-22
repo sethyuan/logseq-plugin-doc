@@ -196,45 +196,47 @@ function prepareBlockRefs(graphName, mainDiv) {
     ".kef-tocgen-block [data-ref], .kef-tocgen-page .block[data-ref]",
   )
 
-  if (tocBlockRefs.length > 0) {
-    writeAnchors(tocBlockRefs, mainDiv)
-  }
-
-  for (const span of tocBlockRefs) {
-    const destEl = mainDiv.querySelector(`[class~="${span.dataset.ref}"]`)
-    const a = parent.document.createElement("a")
-    if (destEl) {
-      a.href = `#${span.dataset.ref}`
-    } else {
-      a.href = `logseq://graph/${graphName}?block-id=${span.dataset.ref}`
-    }
-    span.replaceWith(a)
-    a.appendChild(span)
+  for (const blockRef of tocBlockRefs) {
+    writeAnchor(blockRef, mainDiv)
+    wrapBlockWithLink(blockRef, graphName, mainDiv)
   }
 }
 
-function writeAnchors(blockRefs, mainDiv) {
-  for (const blockRef of blockRefs) {
-    const toc = blockRef.closest("[id^='logseq-tocgen--toc-slot']")
-    const block = mainDiv.querySelector(
-      `.block-content[blockid="${blockRef.dataset.ref}"]`,
-    )
+function writeAnchor(blockRef, mainDiv) {
+  const toc = blockRef.closest("[id^='logseq-tocgen--toc-slot']")
+  const block = mainDiv.querySelector(
+    `.block-content[blockid="${blockRef.dataset.ref}"]`,
+  )
 
-    if (toc) {
-      const backToToc = parent.document.createElement("a")
-      backToToc.innerHTML = backTopSvg
-      backToToc.style.marginLeft = "5px"
-      backToToc.setAttribute("href", `#${toc.id}`)
+  if (block == null) return
 
-      block.appendChild(backToToc)
-      block.style.display = "inline-flex"
-      block.style.alignItems = "center"
-    }
+  if (toc != null) {
+    const backToToc = parent.document.createElement("a")
+    backToToc.innerHTML = backTopSvg
+    backToToc.style.marginLeft = "5px"
+    backToToc.setAttribute("href", `#${toc.id}`)
 
-    const anchor = parent.document.createElement("a")
-    anchor.name = block.getAttribute("blockid")
-    block.insertAdjacentElement("beforebegin", anchor)
+    block.appendChild(backToToc)
+    block.style.display = "inline-flex"
+    block.style.alignItems = "center"
   }
+
+  const anchor = parent.document.createElement("a")
+  anchor.name = block.getAttribute("blockid")
+  block.insertAdjacentElement("beforebegin", anchor)
+}
+
+function wrapBlockWithLink(blockRef, graphName, mainDiv) {
+  const ref = blockRef.dataset.ref
+  const destEl = mainDiv.querySelector(`[class~="${ref}"]`)
+  const a = parent.document.createElement("a")
+  if (destEl) {
+    a.href = `#${ref}`
+  } else {
+    a.href = `logseq://graph/${graphName}?block-id=${ref}`
+  }
+  blockRef.replaceWith(a)
+  a.appendChild(blockRef)
 }
 
 function preparePageRefs(graphName, mainDiv) {
@@ -242,14 +244,18 @@ function preparePageRefs(graphName, mainDiv) {
     ".kef-tocgen-page .page[data-ref]",
   )
 
-  for (const span of tocPageRefs) {
-    const a = parent.document.createElement("a")
-    a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
-      span.dataset.ref,
-    )}`
-    span.replaceWith(a)
-    a.appendChild(span)
+  for (const pageRef of tocPageRefs) {
+    wrapPageWithLink(pageRef, graphName)
   }
+}
+
+function wrapPageWithLink(pageRef, graphName) {
+  const a = parent.document.createElement("a")
+  a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+    pageRef.dataset.ref,
+  )}`
+  pageRef.replaceWith(a)
+  a.appendChild(pageRef)
 }
 
 function saveDoc(doc) {
