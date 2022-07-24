@@ -205,7 +205,7 @@ function prepareBlockRefs(graphName, mainDiv) {
 function writeAnchor(blockRef, mainDiv) {
   const toc = blockRef.closest("[id^='logseq-tocgen--toc-slot']")
   const block = mainDiv.querySelector(
-    `.block-content[blockid="${blockRef.dataset.ref}"]`,
+    `.block-content[blockid="${blockRef.dataset.ref}"] > div > div`,
   )
 
   if (block == null) return
@@ -214,6 +214,7 @@ function writeAnchor(blockRef, mainDiv) {
     const backToToc = parent.document.createElement("a")
     backToToc.innerHTML = backTopSvg
     backToToc.style.marginLeft = "5px"
+    backToToc.style.marginTop = "-3px"
     backToToc.setAttribute("href", `#${toc.id}`)
 
     block.appendChild(backToToc)
@@ -222,7 +223,7 @@ function writeAnchor(blockRef, mainDiv) {
   }
 
   const anchor = parent.document.createElement("a")
-  anchor.name = block.getAttribute("blockid")
+  anchor.name = block.parentElement.parentElement.getAttribute("blockid")
   block.insertAdjacentElement("beforebegin", anchor)
 }
 
