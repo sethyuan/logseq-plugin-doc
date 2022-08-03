@@ -143,9 +143,11 @@ async function prepareDoc() {
 
   // Handle links
   const pageA = mainDiv.querySelector("a.page-title")
-  pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
-    pageA.firstElementChild.dataset.ref,
-  )}`
+  if (pageA) {
+    pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+      pageA.firstElementChild.dataset.ref,
+    )}`
+  }
 
   const pageRefs = mainDiv.querySelectorAll("a[data-ref]")
   for (const a of pageRefs) {
