@@ -108,6 +108,7 @@ async function prepareDoc() {
       node.attributes.src.value = node.src
     }
   }
+  html.classList.add("kef-doc-exported");
   html.appendChild(head)
   html.appendChild(body)
   body.appendChild(rootDiv)
