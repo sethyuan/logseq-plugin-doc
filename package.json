@@ -1,6 +1,6 @@
 {
   "name": "logseq-plugin-doc",
-  "version": "1.9.2",
+  "version": "1.10.0",
   "main": "dist/index.html",
   "logseq": {
     "id": "_sethyuan-logseq-doc",
