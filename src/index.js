@@ -108,7 +108,7 @@ async function prepareDoc() {
       node.attributes.src.value = node.src
     }
   }
-  html.classList.add("kef-doc-exported");
+  html.classList.add("kef-doc-exported")
   html.appendChild(head)
   html.appendChild(body)
   body.appendChild(rootDiv)
@@ -142,29 +142,31 @@ async function prepareDoc() {
     }
   }
 
-  // Handle links
-  const pageA = mainDiv.querySelector("a.page-title")
-  if (pageA) {
-    pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
-      pageA.firstElementChild.dataset.ref,
-    )}`
-  }
+  if (logseq.settings?.graphLinks) {
+    // Handle links
+    const pageA = mainDiv.querySelector("a.page-title")
+    if (pageA) {
+      pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+        pageA.firstElementChild.dataset.ref,
+      )}`
+    }
 
-  const pageRefs = mainDiv.querySelectorAll("a[data-ref]")
-  for (const a of pageRefs) {
-    a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
-      a.dataset.ref,
-    )}`
-  }
+    const pageRefs = mainDiv.querySelectorAll("a[data-ref]")
+    for (const a of pageRefs) {
+      a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+        a.dataset.ref,
+      )}`
+    }
 
-  const blockRefs = mainDiv.querySelectorAll(".block-ref > [blockid]")
-  for (const div of blockRefs) {
-    const a = parent.document.createElement("a")
-    a.href = `logseq://graph/${graphName}?block-id=${div.getAttribute(
-      "blockid",
-    )}`
-    div.replaceWith(a)
-    a.appendChild(div)
+    const blockRefs = mainDiv.querySelectorAll(".block-ref > [blockid]")
+    for (const div of blockRefs) {
+      const a = parent.document.createElement("a")
+      a.href = `logseq://graph/${graphName}?block-id=${div.getAttribute(
+        "blockid",
+      )}`
+      div.replaceWith(a)
+      a.appendChild(div)
+    }
   }
 
   prepareForTocGen(graphName, mainDiv)
@@ -236,7 +238,7 @@ function wrapBlockWithLink(blockRef, graphName, mainDiv) {
   const a = parent.document.createElement("a")
   if (destEl) {
     a.href = `#${ref}`
-  } else {
+  } else if (logseq.settings?.graphLinks) {
     a.href = `logseq://graph/${graphName}?block-id=${ref}`
   }
   blockRef.replaceWith(a)
@@ -254,6 +256,7 @@ function preparePageRefs(graphName, mainDiv) {
 }
 
 function wrapPageWithLink(pageRef, graphName) {
+  if (!logseq.settings?.graphLinks) return
   const a = parent.document.createElement("a")
   a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
     pageRef.dataset.ref,
@@ -578,6 +581,14 @@ async function main() {
       type: "string",
       default: "mod+shift+d",
       description: t("It defines a shortcut for toggling the document view."),
+    },
+    {
+      key: "graphLinks",
+      type: "boolean",
+      default: true,
+      description: t(
+        "It defines whether or not to generate graph links when exporting.",
+      ),
     },
   ])
 
