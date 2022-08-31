@@ -45,3 +45,9 @@ Similarly, you can use tags that [Ordered Lists plugin](https://github.com/sethy
 新版本中 Linked References 区域是动态加载的，如果你想要在导出中看到这块的内容的话你需要将页面滚动到这部分，确保这个区域内的所有数据都是被渲染了的。
 
 Linked References are dynamically loaded in newer versions of Logseq, be sure to scroll to this part of the page and all its content is loaded and displayed if you want to have this section exported.
+
+## 复杂主题的导出 (Exporting for complex themes)
+
+针对一些实现较复杂的主题，有必要在插件配置中设置一下 `pluginsDir`，否则导出的 HTML 会加载不到样式资源。
+
+It's necessary to configure `pluginsDir` in the plugin's settings if you use some complex themes, the style files won't be able to load for exported HTML otherwise.
