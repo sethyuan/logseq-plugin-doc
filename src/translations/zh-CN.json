@@ -4,5 +4,6 @@
   "It defines whether or not to show the \"Linked Reference\" section.": "是否在文档视图中显示有关联的页面。",
   "It defines how many levels you want to unindent while in the document view. Mininum is 0.": "设置要在文档视图中去掉多少级的缩进。最小为0。",
   "It defines a shortcut for toggling the document view.": "设置切换文档视图状态的快捷键。",
-  "It defines whether or not to generate graph links when exporting.": "设置导出时是否生成图链接。"
+  "It defines whether or not to generate graph links when exporting.": "设置导出时是否生成图链接。",
+  "Logseq's plugins directory, e.g, `/Users/xyz/.logseq/plugins` or `C:\\Users\\xyz\\.logseq\\plugins`. This setting is required during exporting for some complex themes.": "Logseq的插件文件夹，例如：`/Users/xyz/.logseq/plugins` 或 `C:\\Users\\xyz\\.logseq\\plugins`。对于某些复杂主题而言该设置在使用导出功能时是必要的。"
 }

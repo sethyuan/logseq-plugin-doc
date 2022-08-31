@@ -102,6 +102,14 @@ async function prepareDoc() {
         "file://",
       )
     } else if (
+      node.rel === "stylesheet" &&
+      node.attributes.href.value.startsWith("lsp://logseq.io")
+    ) {
+      node.attributes.href.value = node.attributes.href.value.replace(
+        "lsp://logseq.io",
+        `file://${logseq.settings?.pluginsDir ?? ""}`,
+      )
+    } else if (
       node.nodeName.toLowerCase() === "script" &&
       node.attributes.src.value.startsWith(".")
     ) {
@@ -588,6 +596,14 @@ async function main() {
       default: true,
       description: t(
         "It defines whether or not to generate graph links when exporting.",
+      ),
+    },
+    {
+      key: "pluginsDir",
+      type: "string",
+      default: "",
+      description: t(
+        "Logseq's plugins directory, e.g, `/Users/xyz/.logseq/plugins` or `C:\\Users\\xyz\\.logseq\\plugins`. This setting is required during exporting for some complex themes.",
       ),
     },
   ])
