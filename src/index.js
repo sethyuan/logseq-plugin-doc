@@ -59,13 +59,14 @@ function preventEditing(e) {
     if (path[i].classList?.contains("kef-tocgen-block")) return
     // Let go of CodeMirror code blocks.
     if (path[i].classList?.contains("CodeMirror")) return
+    // Let go of favorite items and recent items.
+    if (path[i].classList?.contains("favorite-item")) return
+    if (path[i].classList?.contains("recent-item")) return
+    if (path[i].classList?.contains("ls-icon-maximize")) return
 
     if (path[i].id === "left-container") {
       if (path[i - 1]?.id === "main-container") {
-        if (parent.document.querySelector(".cp__plugins-page") == null) {
-          // Stop if in main container but in plugins page.
-          e.stopPropagation()
-        }
+        e.stopPropagation()
       }
       return
     }
@@ -488,9 +489,13 @@ const model = {
 
     if (appContainer.classList.contains("kef-doc")) {
       for (const event of EVENTS_TO_PREVENT) {
-        parent.document.body.removeEventListener(event, preventEditing, {
-          capture: true,
-        })
+        parent.document.documentElement.removeEventListener(
+          event,
+          preventEditing,
+          {
+            capture: true,
+          },
+        )
       }
       appContainer.classList.remove("kef-doc", "kef-doc-show-refs")
       parent.document.body.style.height = null
@@ -504,10 +509,14 @@ const model = {
         ],
       )
       for (const event of EVENTS_TO_PREVENT) {
-        parent.document.body.addEventListener(event, preventEditing, {
-          capture: true,
-          passive: true,
-        })
+        parent.document.documentElement.addEventListener(
+          event,
+          preventEditing,
+          {
+            capture: true,
+            passive: true,
+          },
+        )
       }
     }
   },
@@ -558,9 +567,13 @@ async function main() {
 
   logseq.beforeunload(() => {
     for (const event of EVENTS_TO_PREVENT) {
-      parent.document.body.removeEventListener(event, preventEditing, {
-        capture: true,
-      })
+      parent.document.documentElement.removeEventListener(
+        event,
+        preventEditing,
+        {
+          capture: true,
+        },
+      )
     }
     const appContainer = parent.document.getElementById("app-container")
     appContainer.classList.remove("kef-doc")
