@@ -528,17 +528,11 @@ const model = {
 }
 
 async function main() {
-  const l10nSetup = setup({
-    urlTemplate:
-      "https://raw.githubusercontent.com/sethyuan/logseq-plugin-doc/master/src/translations/${locale}.json",
-    builtinTranslations: { "zh-CN": zhCN },
-  })
+  await setup({ builtinTranslations: { "zh-CN": zhCN } })
 
   uiModalOverlay = parent.document.querySelector(".ui__modal-overlay")
 
   injectStyles()
-
-  await l10nSetup
 
   logseq.App.registerUIItem("toolbar", {
     key: t("doc-view-exporter"),
