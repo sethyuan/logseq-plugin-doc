@@ -397,6 +397,19 @@ function injectStyles() {
       .kef-doc #main-content-container .kef-tocgen-to {
         display: none;
       }
+      .kef-doc :is(.embed-page,.embed-block).color-level {
+        background-color: unset !important;
+      }
+      .kef-doc .embed-block > .px-3 {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+      }
+      .kef-doc .embed-block > .pt-1 {
+        padding-top: 0 !important;
+      }
+      .kef-doc .embed-block > .pb-2 {
+        padding-bottom: 0 !important;
+      }
     `,
   })
   if (unindentLevel > 0) {
