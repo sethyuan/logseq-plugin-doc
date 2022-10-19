@@ -86,7 +86,6 @@ async function prepareDoc() {
   const themeInnerDiv =
     parent.document.body.firstElementChild.firstElementChild.firstElementChild.cloneNode()
   const appDiv = parent.document.getElementById("app-container").cloneNode()
-  const mainDiv = mainContent.cloneNode()
 
   for (const node of head.children) {
     if (
@@ -118,13 +117,14 @@ async function prepareDoc() {
     }
   }
   html.classList.add("kef-doc-exported")
+  html.style.overflow = "auto"
   html.appendChild(head)
   html.appendChild(body)
+  body.style.overflow = "auto"
   body.appendChild(rootDiv)
   rootDiv.appendChild(themeDiv)
   themeDiv.appendChild(themeInnerDiv)
   themeInnerDiv.appendChild(appDiv)
-  appDiv.appendChild(mainDiv)
 
   // Generate static images for canvases.
   const canvases = mainContent.querySelectorAll("canvas")
@@ -135,9 +135,8 @@ async function prepareDoc() {
     canvas.parentElement.parentElement.append(img)
   }
 
-  mainDiv.innerHTML = parent.document.getElementById(
-    "main-content-container",
-  ).innerHTML
+  const mainDiv = mainContent.cloneNode(true)
+  appDiv.appendChild(mainDiv)
 
   // Remove static images generated for canvases.
   for (const canvas of canvases) {
@@ -575,8 +574,8 @@ async function main() {
       )
     }
     const appContainer = parent.document.getElementById("app-container")
-    appContainer.classList.remove("kef-doc")
-    parent.document.body.style.overflow = null
+    appContainer.classList.remove("kef-doc", "kef-doc-show-refs")
+    parent.document.body.style.height = null
   })
 
   logseq.useSettingsSchema([
