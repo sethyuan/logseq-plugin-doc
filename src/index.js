@@ -313,22 +313,14 @@ function injectStyles() {
       .kef-doc-svg path,
       .kef-doc-svg polygon,
       .kef-doc-svg rect {
-        fill: var(--ls-icon-color);
+        fill: var(--ls-header-button-background);
       }
       .kef-doc-svg circle {
-        stroke: var(--ls-icon-color);
+        stroke: var(--ls-header-button-background);
         stroke-width: 1;
       }
       .kef-doc-icon:hover {
         background: var(--ls-tertiary-background-color);
-      }
-      .kef-doc-icon:hover .kef-doc-svg path,
-      .kef-doc-icon:hover .kef-doc-svg polygon,
-      .kef-doc-icon:hover .kef-doc-svg rect {
-        fill: var(--ls-primary-text-color);
-      }
-      .kef-doc-icon:hover .kef-doc-svg circle {
-        stroke: var(--ls-primary-text-color);
       }
       .kef-doc .kef-doc-icon:not(.kef-doc-download) path,
       .kef-doc .kef-doc-icon:not(.kef-doc-download) polygon,
