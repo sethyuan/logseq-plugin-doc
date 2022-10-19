@@ -147,6 +147,9 @@ async function prepareDoc() {
   for (const img of imgs) {
     if (img.src.startsWith("assets://")) {
       img.src = img.src.replace("assets://", "file://")
+      if (navigator.userAgent.includes("Windows")) {
+        img.src = img.src.replace("/logseq__colon", ":")
+      }
     }
   }
 
