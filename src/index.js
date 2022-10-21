@@ -307,6 +307,7 @@ function injectStyles() {
         border-radius: 4px;
         justify-content: center;
         align-items: center;
+        color: var(--ls-header-button-background);
       }
       .kef-doc-svg {
         width: 20px;
@@ -315,10 +316,10 @@ function injectStyles() {
       .kef-doc-svg path,
       .kef-doc-svg polygon,
       .kef-doc-svg rect {
-        fill: var(--ls-header-button-background);
+        fill: currentColor;
       }
       .kef-doc-svg circle {
-        stroke: var(--ls-header-button-background);
+        stroke: currentColor;
         stroke-width: 1;
       }
       .kef-doc-icon:hover {
