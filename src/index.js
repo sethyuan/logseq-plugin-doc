@@ -380,12 +380,6 @@ function injectStyles() {
       .kef-doc .cp__sidebar-main-content > div {
         margin-bottom: 0 !important;
       }
-      .kef-doc #main-content-container .block-children-left-border {
-        display: none;
-      }
-      .kef-doc #main-content-container .block-children {
-        border-left: 0 !important;
-      }
       .kef-doc #main-content-container .block-content-wrapper > .flex-row > *:not(:first-child) {
         display: none;
       }
@@ -431,6 +425,12 @@ function injectStyles() {
         }
         .kef-doc #main-content-container div[blockid][haschild] > div:first-child > div:first-child {
           display: none;
+        }
+        .kef-doc #main-content-container .block-children-left-border {
+          display: none;
+        }
+        .kef-doc #main-content-container .block-children {
+          border-left: 0 !important;
         }
         .kef-doc #main-content-container .block-children-container {
           margin-left: 0 !important;
