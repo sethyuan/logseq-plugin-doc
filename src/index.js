@@ -136,6 +136,12 @@ async function prepareDoc() {
   }
 
   const mainDiv = mainContent.cloneNode(true)
+  // HACK: workaround Logseq's bad h1 HTML
+  mainDiv.querySelectorAll("h1.page-title").forEach((el) => {
+    const div = parent.document.createElement("div")
+    el.replaceWith(div)
+    div.appendChild(el)
+  })
   appDiv.appendChild(mainDiv)
 
   // Remove static images generated for canvases.
