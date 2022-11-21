@@ -8,6 +8,8 @@ Show page in a more document like look and provide quick exporting.
 
 ![demo](./demo.gif)
 
+https://user-images.githubusercontent.com/3410293/203032399-a9e4a43f-3b01-4487-97fe-ee83403ef3c8.mp4
+
 ### 与 TOC Generator 联动 (Inline TOC Generator Support)
 
 页面内嵌入的 TOC 在导出时链接仍然可用并且每个被链接的块上会有返回的箭头。
