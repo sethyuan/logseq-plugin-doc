@@ -12,6 +12,8 @@ const downloadSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20">
 <path fill="none" d="M17.737,9.815c-0.327,0-0.592,0.265-0.592,0.591v2.903H2.855v-2.903c0-0.327-0.264-0.591-0.591-0.591c-0.327,0-0.591,0.265-0.591,0.591V13.9c0,0.328,0.264,0.592,0.591,0.592h15.473c0.327,0,0.591-0.264,0.591-0.592v-3.494C18.328,10.08,18.064,9.815,17.737,9.815z"></path>
 </svg>`
 
+const exportSvg = `<svg class="kef-doc-svg" viewBox="0 0 20 20"><path d="M16.527 5.404a.82.82 0 0 1 .299.306.816.816 0 0 1-.062 1.08l-2.882 2.9a.816.816 0 0 1-1.158-1.15l1.609-1.618h-.94a2.81 2.81 0 0 0-2.809 2.81v2.429a.816.816 0 0 1-1.631 0V9.73a4.44 4.44 0 0 1 4.44-4.44h.714l-1.399-1.4a.816.816 0 1 1 1.154-1.153l2.665 2.666zm-2.38 7.282a.816.816 0 0 1 0-1.631h1.494c.751 0 1.36.609 1.36 1.36v3.262c0 .75-.609 1.36-1.36 1.36H3.86a1.36 1.36 0 0 1-1.359-1.36v-3.263c0-.75.609-1.36 1.36-1.36h1.455a.816.816 0 0 1 0 1.632H4.13v2.72H15.37v-2.72h-1.222z"/></svg>`
+
 const backTopSvg = `<svg class="kef-doc-inline-icon" t="1658397135915" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1599" width="200" height="200"><path d="M904 692c0 8.189-3.124 16.379-9.372 22.628-12.497 12.496-32.759 12.496-45.256 0L512 377.255 174.628 714.628c-12.497 12.496-32.758 12.496-45.255 0-12.497-12.498-12.497-32.758 0-45.256l360-360c12.497-12.496 32.758-12.496 45.255 0l360 360C900.876 675.621 904 683.811 904 692z" p-id="1600"></path></svg>`
 
 const EVENTS_TO_PREVENT = [
@@ -73,7 +75,7 @@ function preventEditing(e) {
   }
 }
 
-async function prepareDoc() {
+async function prepareDoc(forImage = false) {
   const graphName = (await logseq.App.getCurrentGraph()).name
   const mainContent = parent.document.getElementById("main-content-container")
 
@@ -118,6 +120,9 @@ async function prepareDoc() {
   }
   html.classList.add("kef-doc-exported")
   html.style.overflow = "auto"
+  if (forImage) {
+    html.style.maxWidth = `${logseq.settings?.imageWidth ?? 360}px`
+  }
   html.appendChild(head)
   html.appendChild(body)
   body.style.overflow = "auto"
@@ -144,12 +149,14 @@ async function prepareDoc() {
     el.replaceWith(div)
     div.appendChild(el)
   })
-  // Make blocks editable for easier print preparation.
-  mainDiv.querySelectorAll("div.flex-1.w-full").forEach((el) => {
-    if (el.querySelector("div.flex-1.w-full") == null) {
-      el.setAttribute("contenteditable", "true")
-    }
-  })
+  if (!forImage) {
+    // Make blocks editable for easier print preparation.
+    mainDiv.querySelectorAll("div.flex-1.w-full").forEach((el) => {
+      if (el.querySelector("div.flex-1.w-full") == null) {
+        el.setAttribute("contenteditable", "true")
+      }
+    })
+  }
   appDiv.appendChild(mainDiv)
 
   // Remove static images generated for canvases.
@@ -167,34 +174,36 @@ async function prepareDoc() {
     }
   }
 
-  if (logseq.settings?.graphLinks) {
-    // Handle links
-    const pageA = mainDiv.querySelector("a.page-title")
-    if (pageA) {
-      pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
-        pageA.firstElementChild.dataset.ref,
-      )}`
+  if (!forImage) {
+    if (logseq.settings?.graphLinks) {
+      // Handle links
+      const pageA = mainDiv.querySelector("a.page-title")
+      if (pageA) {
+        pageA.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+          pageA.firstElementChild.dataset.ref,
+        )}`
+      }
+
+      const pageRefs = mainDiv.querySelectorAll("a[data-ref]")
+      for (const a of pageRefs) {
+        a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
+          a.dataset.ref,
+        )}`
+      }
+
+      const blockRefs = mainDiv.querySelectorAll(".block-ref > [blockid]")
+      for (const div of blockRefs) {
+        const a = parent.document.createElement("a")
+        a.href = `logseq://graph/${graphName}?block-id=${div.getAttribute(
+          "blockid",
+        )}`
+        div.replaceWith(a)
+        a.appendChild(div)
+      }
     }
 
-    const pageRefs = mainDiv.querySelectorAll("a[data-ref]")
-    for (const a of pageRefs) {
-      a.href = `logseq://graph/${graphName}?page=${encodeURIComponent(
-        a.dataset.ref,
-      )}`
-    }
-
-    const blockRefs = mainDiv.querySelectorAll(".block-ref > [blockid]")
-    for (const div of blockRefs) {
-      const a = parent.document.createElement("a")
-      a.href = `logseq://graph/${graphName}?block-id=${div.getAttribute(
-        "blockid",
-      )}`
-      div.replaceWith(a)
-      a.appendChild(div)
-    }
+    prepareForTocGen(graphName, mainDiv)
   }
-
-  prepareForTocGen(graphName, mainDiv)
 
   return `<!DOCTYPE html>\n${html.outerHTML}`
 }
@@ -339,26 +348,26 @@ function injectStyles() {
       .kef-doc-icon:hover {
         background: var(--ls-tertiary-background-color);
       }
-      .kef-doc .kef-doc-icon:not(.kef-doc-download) path,
-      .kef-doc .kef-doc-icon:not(.kef-doc-download) polygon,
-      .kef-doc .kef-doc-icon:not(.kef-doc-download) react {
+      .kef-doc .kef-doc-icon:not(.kef-doc-export) path,
+      .kef-doc .kef-doc-icon:not(.kef-doc-export) polygon,
+      .kef-doc .kef-doc-icon:not(.kef-doc-export) react {
         fill: var(--ls-link-ref-text-color);
       }
-      .kef-doc .kef-doc-icon:not(.kef-doc-download) circle {
+      .kef-doc .kef-doc-icon:not(.kef-doc-export) circle {
         stroke: var(--ls-link-ref-text-color);
       }
-      .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) path,
-      .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) polygon,
-      .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) react {
+      .kef-doc .kef-doc-icon:hover:not(.kef-doc-export) path,
+      .kef-doc .kef-doc-icon:hover:not(.kef-doc-export) polygon,
+      .kef-doc .kef-doc-icon:hover:not(.kef-doc-export) react {
         fill: var(--ls-link-ref-text-color);
       }
-      .kef-doc .kef-doc-icon:hover:not(.kef-doc-download) circle {
+      .kef-doc .kef-doc-icon:hover:not(.kef-doc-export) circle {
         stroke: var(--ls-link-ref-text-color);
       }
-      .kef-doc-download {
+      .kef-doc-export {
         display: none;
       }
-      .kef-doc .kef-doc-download {
+      .kef-doc .kef-doc-export {
         display: flex;
       }
       .kef-doc-inline-icon {
@@ -547,6 +556,11 @@ const model = {
     const doc = await prepareDoc()
     saveDoc(doc)
   },
+
+  async startExportImage() {
+    const doc = await prepareDoc(true)
+    saveDoc(doc)
+  },
 }
 
 async function main() {
@@ -558,7 +572,10 @@ async function main() {
 
   logseq.App.registerUIItem("toolbar", {
     key: t("doc-view-exporter"),
-    template: `<div class="kef-doc-container"><a class="kef-doc-icon kef-doc-download" data-on-click="startDownload" title="${t(
+    template: `<div class="kef-doc-container"><a class="kef-doc-icon kef-doc-export" data-on-click="startExportImage" title="${t(
+      "Export page as image",
+    )}">${exportSvg}</a>
+    <a class="kef-doc-icon kef-doc-export" data-on-click="startDownload" title="${t(
       "Export page",
     )}">${downloadSvg}</a>
     <a class="kef-doc-icon" data-on-click="toggleDocView" title="${t(
@@ -634,6 +651,12 @@ async function main() {
       description: t(
         "Logseq's plugins directory, e.g, `/Users/xyz/.logseq/plugins` or `C:\\Users\\xyz\\.logseq\\plugins`. This setting is required during exporting for some complex themes.",
       ),
+    },
+    {
+      key: "imageWidth",
+      type: "number",
+      default: 360,
+      description: t("It defines the page width when exporting for image."),
     },
   ])
 
