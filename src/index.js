@@ -656,7 +656,9 @@ async function main() {
       key: "imageWidth",
       type: "number",
       default: 360,
-      description: t("It defines the page width when exporting for image."),
+      description: t(
+        "It defines the page width of the exported HTML (for further image conversion).",
+      ),
     },
   ])
 
