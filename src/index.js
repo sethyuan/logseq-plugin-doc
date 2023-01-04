@@ -119,13 +119,11 @@ async function prepareDoc(forImage = false) {
     }
   }
   html.classList.add("kef-doc-exported")
-  html.style.overflow = "auto"
   if (forImage) {
     html.style.maxWidth = `${logseq.settings?.imageWidth ?? 360}px`
   }
   html.appendChild(head)
   html.appendChild(body)
-  body.style.overflow = "auto"
   body.appendChild(rootDiv)
   rootDiv.appendChild(themeDiv)
   themeDiv.appendChild(themeInnerDiv)
@@ -141,8 +139,6 @@ async function prepareDoc(forImage = false) {
   }
 
   const mainDiv = mainContent.cloneNode(true)
-  mainDiv.style =
-    "margin: 0 !important; border: 0 !important; border-radius: 0 !important; box-shadow: none !important;"
   // HACK: workaround Logseq's bad h1 HTML
   mainDiv.querySelectorAll("h1.page-title").forEach((el) => {
     const div = parent.document.createElement("div")
@@ -411,16 +407,20 @@ function injectStyles() {
       }
       .kef-doc :is(.embed-page,.embed-block).color-level {
         background-color: unset !important;
+        border: none;
       }
-      .kef-doc .embed-block > .px-3 {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+
+      html.kef-doc-exported {
+        overflow: auto;
       }
-      .kef-doc .embed-block > .pt-1 {
-        padding-top: 0 !important;
+      .kef-doc-exported #main-content-container {
+        margin: 0 !important;
+        border: 0 !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
       }
-      .kef-doc .embed-block > .pb-2 {
-        padding-bottom: 0 !important;
+      .kef-doc-exported .cp__sidebar-main-content {
+        overflow: hidden;
       }
     `,
   })
@@ -428,9 +428,6 @@ function injectStyles() {
     logseq.provideStyle({
       key: "kef-doc-unindent",
       style: `
-        .kef-doc .ls-page-title {
-          padding-left: 0;
-        }
         .kef-doc #main-content-container .page-blocks-inner {
           margin-left: 0 !important;
         }
