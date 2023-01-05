@@ -139,20 +139,6 @@ async function prepareDoc(forImage = false) {
   }
 
   const mainDiv = mainContent.cloneNode(true)
-  // HACK: workaround Logseq's bad h1 HTML
-  mainDiv.querySelectorAll("h1.page-title").forEach((el) => {
-    const div = parent.document.createElement("div")
-    el.replaceWith(div)
-    div.appendChild(el)
-  })
-  if (!forImage) {
-    // Make blocks editable for easier print preparation.
-    mainDiv.querySelectorAll("div.flex-1.w-full").forEach((el) => {
-      if (el.querySelector("div.flex-1.w-full") == null) {
-        el.setAttribute("contenteditable", "true")
-      }
-    })
-  }
   appDiv.appendChild(mainDiv)
 
   // Remove static images generated for canvases.
