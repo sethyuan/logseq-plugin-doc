@@ -455,6 +455,12 @@ function injectStyles() {
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested'] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
           display: flex;
         }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-2'] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-2'] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
+          display: none;
+        }
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > .block-children-container,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
           margin-left: 22px !important;
@@ -464,10 +470,16 @@ function injectStyles() {
         }
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > .block-children-container,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
-          margin-left: 29px !important;
+          margin-left: 26px !important;
         }
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
           margin-left: 0 !important;
+        }
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-2'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-2'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container {
+          margin-left: 36px !important;
         }
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ul'] div[blockid] .block-control,
