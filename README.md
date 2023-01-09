@@ -6,9 +6,7 @@ Show page in a more document like look and provide quick exporting.
 
 ## 使用展示 (Usage)
 
-![demo](./demo.gif)
-
-https://user-images.githubusercontent.com/3410293/203032399-a9e4a43f-3b01-4487-97fe-ee83403ef3c8.mp4
+https://user-images.githubusercontent.com/3410293/211275836-5aedc010-12e3-43d4-873e-e9aa60939717.mp4
 
 https://user-images.githubusercontent.com/3410293/206097189-01cabcb4-8d12-4a5f-95be-9241805b3f9d.mp4
 
