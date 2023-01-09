@@ -393,7 +393,12 @@ function injectStyles() {
       }
       .kef-doc :is(.embed-page,.embed-block).color-level {
         background-color: unset !important;
-        border: none;
+        border: none !important;
+      }
+      .kef-doc .asset-overlay,
+      .kef-doc .asset-action-bar,
+      .kef-doc :is(.embed-page,.embed-block):hover::after {
+        display: none !important;
       }
 
       html.kef-doc-exported {
