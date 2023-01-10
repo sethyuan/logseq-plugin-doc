@@ -120,6 +120,7 @@ async function prepareDoc(forImage = false) {
   }
   html.classList.add("kef-doc-exported")
   if (forImage) {
+    html.classList.add("kef-doc-exported-img")
     html.style.maxWidth = `${logseq.settings?.imageWidth ?? 360}px`
   }
   html.appendChild(head)
@@ -412,6 +413,15 @@ function injectStyles() {
       }
       .kef-doc-exported .cp__sidebar-main-content {
         overflow: hidden;
+      }
+      .kef-doc-exported-img #main-content-container {
+        padding: 0.5rem !important;
+      }
+      .kef-doc-exported-img .block-content-wrapper {
+        width: 100% !important;
+      }
+      .kef-doc-exported-img .pr-2 {
+        padding: 0 !important;
       }
     `,
   })
