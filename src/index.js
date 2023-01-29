@@ -469,6 +469,7 @@ function injectStyles() {
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ul-nested'] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested'] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
           display: flex;
+          margin-left: -4px;
         }
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-2'] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
@@ -507,6 +508,7 @@ function injectStyles() {
         }
         .kef-doc #main-content-container div[level="${unindentLevel}"] > .block-children-container div[blockid] > div:first-child > div:first-child {
           display: flex;
+          margin-left: -4px;
         }
         .kef-doc #main-content-container div[level="${unindentLevel}"] div[blockid] .block-control {
           min-width: 11px;
