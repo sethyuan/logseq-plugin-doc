@@ -359,8 +359,8 @@ function injectStyles() {
         fill: gray;
       }
 
-      .kef-doc ~ .cp__sidebar-help-btn {
-        display: none;
+      .kef-doc .cp__sidebar-help-btn {
+        display: none !important;
       }
       .kef-doc.kef-doc-show-refs #main-content-container .page.relative .lazy-visibility,
       .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
@@ -529,9 +529,9 @@ function injectStyles() {
 
 const model = {
   async toggleDocView() {
-    const appContainer = parent.document.getElementById("app-container")
+    const main = parent.document.querySelector("main.theme-inner")
 
-    if (appContainer.classList.contains("kef-doc")) {
+    if (main.classList.contains("kef-doc")) {
       for (const event of EVENTS_TO_PREVENT) {
         parent.document.documentElement.removeEventListener(
           event,
@@ -541,12 +541,12 @@ const model = {
           },
         )
       }
-      appContainer.classList.remove("kef-doc", "kef-doc-show-refs")
+      main.classList.remove("kef-doc", "kef-doc-show-refs")
       parent.document.body.style.height = null
     } else {
       await logseq.Editor.exitEditingMode()
       parent.document.body.style.height = "auto"
-      appContainer.classList.add(
+      main.classList.add(
         ...[
           "kef-doc",
           ...(logseq.settings?.showReferences ? ["kef-doc-show-refs"] : []),
