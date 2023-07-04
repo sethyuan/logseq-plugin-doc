@@ -440,7 +440,7 @@ function injectStyles() {
           margin-bottom: 0.4em;
         }
         .kef-doc #main-content-container span.inline {
-          line-height: 1.6;
+          line-height: 24px;
         }
         .kef-doc #main-content-container .tag {
           display: none !important;
@@ -458,7 +458,7 @@ function injectStyles() {
           margin-left: 0 !important;
         }
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] .block-control-wrap,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] .block-control-wrap, {
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] .block-control-wrap {
           min-width: 0;
           margin-right: 5px;
         }
@@ -470,7 +470,7 @@ function injectStyles() {
           display: none;
         }
         .kef-doc #main-content-container div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div.is-order-list:first-child,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
