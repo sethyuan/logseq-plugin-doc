@@ -362,8 +362,7 @@ function injectStyles() {
       .kef-doc .cp__sidebar-help-btn {
         display: none !important;
       }
-      .kef-doc.kef-doc-show-refs #main-content-container .page.relative .lazy-visibility,
-      .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references {
+      .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references:is(.page-linked,.page-unlinked) {
         display: block;
       }
       .kef-doc .open-block-ref-link {
@@ -378,9 +377,7 @@ function injectStyles() {
       .kef-doc .excalidraw > .excalidraw-textEditorContainer {
         display: none;
       }
-      .kef-doc #main-content-container .page.relative .references,
-      .kef-doc #main-content-container .page.relative .page-hierarchy,
-      .kef-doc #main-content-container .page.relative .lazy-visibility {
+      .kef-doc #main-content-container .page.relative .references:is(.page-linked,.page-unlinked) {
         display: none;
       }
       .kef-doc .cp__sidebar-main-content > div {
