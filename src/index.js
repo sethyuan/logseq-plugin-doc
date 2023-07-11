@@ -135,7 +135,6 @@ async function prepareDoc(forImage = false) {
   for (const canvas of canvases) {
     const img = parent.document.createElement("img")
     img.src = canvas.toDataURL()
-    img.style.transform = "translateX(-100%)"
     canvas.parentElement.parentElement.append(img)
   }
 
