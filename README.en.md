@@ -24,7 +24,7 @@ You can toggle the document view with the command palette，It's shortcut key is
 
 You can add a `#.ul` tag to a block that is a bullet list, in this way, the plugin will know to format it accordingly. You can also use `#.ul-nested` if it's a nested bullet list what you want.
 
-Similarly, you can use tags that [Ordered Lists plugin](https://github.com/sethyuan/logseq-plugin-ol) can support like `#.ol` or `#.ol-nested` to indicate an ordered list.
+Similarly, you can use tags that [Ordered Lists plugin](https://github.com/sethyuan/logseq-plugin-ol) can support like `#.ol` or `#.ol-nested` to indicate an ordered list. Logseq's built-in ordered lists are also supported.
 
 Example
 
@@ -37,6 +37,17 @@ Linked References are dynamically loaded in newer versions of Logseq, be sure to
 ## Exporting for complex themes
 
 It's necessary to configure `pluginsDir` in the plugin's settings if you use some complex themes, the style files won't be able to load for exported HTML otherwise.
+
+## Customizing styles for export
+
+You can customize the styles that are applied when exporting via the custom.css file. When exporting, the plugin applies the `.kef-doc-exported` CSS class to the top level, so you can control the styles you want to apply when exporting by prepending this class to your CSS selector. For example:
+
+```css
+/* The background color of the exported page is white. */
+.kef-doc-exported #main-content-container {
+  background: #fff !important;
+}
+```
 
 ## Buy me a coffee
 

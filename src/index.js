@@ -406,7 +406,6 @@ function injectStyles() {
         border: 0 !important;
         border-radius: 0 !important;
         box-shadow: none !important;
-        background: #fff !important;
       }
       .kef-doc-exported .cp__sidebar-main-content {
         overflow: hidden;

@@ -24,7 +24,7 @@ https://user-images.githubusercontent.com/3410293/211442242-129978a6-b7a6-41d2-b
 
 你可以在无序列表的块上加`#.ul`标签，这样插件就知道这是一个无序列表并配合排版了。你也可以加`#.ul-nested`标签，如果你需要多级无序列表的话。
 
-同样，有序列表可以加`#.ol`或者`#.ol-nested`等 [Ordered Lists 插件](https://github.com/sethyuan/logseq-plugin-ol) 支持的标签。
+同样，有序列表可以加`#.ol`或者`#.ol-nested`等 [Ordered Lists 插件](https://github.com/sethyuan/logseq-plugin-ol) 支持的标签。Logseq 自身的有序列表也是支持的。
 
 示例
 
@@ -37,6 +37,17 @@ https://user-images.githubusercontent.com/3410293/211442242-129978a6-b7a6-41d2-b
 ## 复杂主题的导出
 
 针对一些实现较复杂的主题，有必要在插件配置中设置一下 `pluginsDir`，否则导出的 HTML 会加载不到样式资源。
+
+## 自定义导出样式
+
+你可以通过 custom.css 来自定义导出时应用的样式。导出时，插件会在上层应用 `.kef-doc-exported` 这个 CSS class，所以你只要在你的 CSS selector 前追加这个 class 就可以控制在导出时想要应用的样式了。例如：
+
+```css
+/* 导出的页面背景色为白色。 */
+.kef-doc-exported #main-content-container {
+  background: #fff !important;
+}
+```
 
 ## Buy me a coffee
 
