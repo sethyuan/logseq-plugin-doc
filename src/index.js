@@ -398,6 +398,10 @@ function injectStyles() {
         display: none !important;
       }
 
+      .kef-doc .kef-long-form .block-main-container {
+        margin-left: 0 !important;
+      }
+
       html.kef-doc-exported {
         overflow: auto;
       }
