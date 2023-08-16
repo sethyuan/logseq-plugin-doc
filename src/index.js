@@ -283,11 +283,12 @@ function wrapPageWithLink(pageRef, graphName) {
 
 function saveDoc(doc) {
   const blob = new Blob([doc], { type: "text/plain" })
+  const objUrl = URL.createObjectURL(blob)
   const link = document.createElement("a")
   link.download = "doc.html"
-  link.href = URL.createObjectURL(blob)
-  link.onclick = () => URL.revokeObjectURL(blob)
+  link.href = objUrl
   link.click()
+  URL.revokeObjectURL(objUrl)
 }
 
 function injectStyles() {
