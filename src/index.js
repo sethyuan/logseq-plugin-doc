@@ -470,11 +470,11 @@ function injectStyles() {
           display: none;
         }
         .kef-doc #main-content-container div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div.is-order-list:first-child,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul-nested'] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        .kef-doc #main-content-container div[blockid][data-refs-self*='".ul-nested'] div[blockid] > .block-children-container .block-children > div[blockid] > div:first-child > div:first-child,
         .kef-doc #main-content-container div[blockid][data-refs-self*='".ol-nested'] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
           display: flex;
         }
