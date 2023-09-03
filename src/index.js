@@ -399,10 +399,6 @@ function injectStyles() {
         display: none !important;
       }
 
-      .kef-doc .kef-long-form .block-main-container {
-        margin-left: 0 !important;
-      }
-
       html.kef-doc-exported {
         overflow: auto;
       }
@@ -430,22 +426,19 @@ function injectStyles() {
     logseq.provideStyle({
       key: "kef-doc-unindent",
       style: `
-        .kef-doc #main-content-container .page-blocks-inner {
+        .kef-doc #app-container:not(.kef-long-form) #main-content-container .page-blocks-inner {
           margin-left: 0 !important;
         }
         .kef-doc #main-content-container .page.relative > .relative:first-child > div:first-child > div.mb-4 {
           display: none;
         }
         .kef-doc #main-content-container .block-content {
-          margin-bottom: 0.4em;
-        }
-        .kef-doc #main-content-container span.inline {
-          line-height: 24px;
+          margin-bottom: 0.3em;
         }
         .kef-doc #main-content-container .tag {
           display: none !important;
         }
-        .kef-doc #main-content-container div[blockid][haschild] > div:first-child > div:first-child {
+        .kef-doc #app-container:not(.kef-long-form) #main-content-container div[blockid][haschild] > div:first-child > div:first-child {
           display: none;
         }
         .kef-doc #main-content-container .block-children-left-border {
