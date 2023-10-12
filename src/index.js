@@ -447,7 +447,7 @@ function injectStyles() {
         .kef-doc #main-content-container .block-children {
           border-left: 0 !important;
         }
-        .kef-doc #main-content-container .block-children-container {
+        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container .block-children-container {
           margin-left: 0 !important;
         }
         .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] .block-control-wrap,
@@ -481,6 +481,7 @@ function injectStyles() {
         .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
           margin-left: 22px !important;
         }
+        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container .ls-block.is-order-list > .block-children-container,
         .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul-nested'] > .block-children-container .block-children > div[blockid] > .block-children-container {
           margin-left: 22px !important;
         }
