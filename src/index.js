@@ -362,7 +362,8 @@ function injectStyles() {
       .kef-doc .cp__sidebar-help-btn {
         display: none !important;
       }
-      .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references:is(.page-linked,.page-unlinked) {
+      .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references:is(.page-linked,.page-unlinked),
+      .kef-doc.kef-doc-show-page-props #main-content-container .ls-block.pre-block {
         display: block;
       }
       .kef-doc .open-block-ref-link {
@@ -377,7 +378,8 @@ function injectStyles() {
       .kef-doc .excalidraw > .excalidraw-textEditorContainer {
         display: none;
       }
-      .kef-doc #main-content-container .page.relative .references:is(.page-linked,.page-unlinked) {
+      .kef-doc #main-content-container .page.relative .references:is(.page-linked,.page-unlinked),
+      .kef-doc #main-content-container .ls-block.pre-block {
         display: none;
       }
       .kef-doc .cp__sidebar-main-content > div {
@@ -538,6 +540,7 @@ const model = {
         )
       }
       main.classList.remove("kef-doc", "kef-doc-show-refs")
+      main.classList.remove("kef-doc", "kef-doc-show-page-props")
       parent.document.body.style.height = null
     } else {
       await logseq.Editor.exitEditingMode()
@@ -546,6 +549,9 @@ const model = {
         ...[
           "kef-doc",
           ...(logseq.settings?.showReferences ? ["kef-doc-show-refs"] : []),
+          ...(logseq.settings?.showPageProps
+            ? ["kef-doc-show-page-props"]
+            : []),
         ],
       )
       for (const event of EVENTS_TO_PREVENT) {
@@ -618,7 +624,11 @@ async function main() {
       )
     }
     const appContainer = parent.document.getElementById("app-container")
-    appContainer.classList.remove("kef-doc", "kef-doc-show-refs")
+    appContainer.classList.remove(
+      "kef-doc",
+      "kef-doc-show-refs",
+      "kef-doc-show-page-props",
+    )
     parent.document.body.style.height = null
   })
 
@@ -630,6 +640,12 @@ async function main() {
       description: t(
         'It defines whether or not to show the "Linked Reference" section.',
       ),
+    },
+    {
+      key: "showPageProps",
+      type: "boolean",
+      default: false,
+      description: t("It defines whether or not to show the page properties."),
     },
     {
       key: "unindentLevel",

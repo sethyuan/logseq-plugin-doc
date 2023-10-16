@@ -7,5 +7,6 @@
   "It defines a shortcut for toggling the document view.": "设置切换文档视图状态的快捷键。",
   "It defines whether or not to generate graph links when exporting.": "设置导出时是否生成图链接。",
   "It defines the page width of the exported HTML (for further image conversion).": "设置导出时的页面宽度（为进一步做图片转换做准备）。",
+  "It defines whether or not to show the page properties.": "设置导出时是否生成页面属性。",
   "Logseq's plugins directory, e.g, `/Users/xyz/.logseq/plugins` or `C:\\Users\\xyz\\.logseq\\plugins`. This setting is required during exporting for some complex themes.": "Logseq的插件文件夹，例如：`/Users/xyz/.logseq/plugins` 或 `C:\\Users\\xyz\\.logseq\\plugins`。对于某些复杂主题而言该设置在使用导出功能时是必要的。"
 }
