@@ -77,6 +77,7 @@ function preventEditing(e) {
 
 async function prepareDoc(forImage = false) {
   const graphName = (await logseq.App.getCurrentGraph()).name
+  const mainContainer = parent.document.getElementById("main-container")
   const mainContent = parent.document.getElementById("main-content-container")
 
   const html = parent.document.documentElement.cloneNode()
@@ -138,8 +139,10 @@ async function prepareDoc(forImage = false) {
     canvas.parentElement.parentElement.append(img)
   }
 
+  const mainContainerDiv = mainContainer.cloneNode()
   const mainDiv = mainContent.cloneNode(true)
-  appDiv.appendChild(mainDiv)
+  mainContainerDiv.appendChild(mainDiv)
+  appDiv.appendChild(mainContainerDiv)
 
   // Remove static images generated for canvases.
   for (const canvas of canvases) {
