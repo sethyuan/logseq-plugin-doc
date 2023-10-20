@@ -334,26 +334,26 @@ function injectStyles() {
       .kef-doc-icon:hover {
         background: var(--ls-tertiary-background-color);
       }
-      .kef-doc .kef-doc-icon:not(.kef-doc-export) path,
-      .kef-doc .kef-doc-icon:not(.kef-doc-export) polygon,
-      .kef-doc .kef-doc-icon:not(.kef-doc-export) react {
+      [data-kef-doc] .kef-doc-icon:not(.kef-doc-export) path,
+      [data-kef-doc] .kef-doc-icon:not(.kef-doc-export) polygon,
+      [data-kef-doc] .kef-doc-icon:not(.kef-doc-export) react {
         fill: var(--ls-link-ref-text-color);
       }
-      .kef-doc .kef-doc-icon:not(.kef-doc-export) circle {
+      [data-kef-doc] .kef-doc-icon:not(.kef-doc-export) circle {
         stroke: var(--ls-link-ref-text-color);
       }
-      .kef-doc .kef-doc-icon:hover:not(.kef-doc-export) path,
-      .kef-doc .kef-doc-icon:hover:not(.kef-doc-export) polygon,
-      .kef-doc .kef-doc-icon:hover:not(.kef-doc-export) react {
+      [data-kef-doc] .kef-doc-icon:hover:not(.kef-doc-export) path,
+      [data-kef-doc] .kef-doc-icon:hover:not(.kef-doc-export) polygon,
+      [data-kef-doc] .kef-doc-icon:hover:not(.kef-doc-export) react {
         fill: var(--ls-link-ref-text-color);
       }
-      .kef-doc .kef-doc-icon:hover:not(.kef-doc-export) circle {
+      [data-kef-doc] .kef-doc-icon:hover:not(.kef-doc-export) circle {
         stroke: var(--ls-link-ref-text-color);
       }
       .kef-doc-export {
         display: none;
       }
-      .kef-doc .kef-doc-export {
+      [data-kef-doc] .kef-doc-export {
         display: flex;
       }
       .kef-doc-inline-icon {
@@ -362,45 +362,45 @@ function injectStyles() {
         fill: gray;
       }
 
-      .kef-doc .cp__sidebar-help-btn {
+      [data-kef-doc] .cp__sidebar-help-btn {
         display: none !important;
       }
-      .kef-doc.kef-doc-show-refs #main-content-container .page.relative .references:is(.page-linked,.page-unlinked),
-      .kef-doc.kef-doc-show-page-props #main-content-container .ls-block.pre-block {
+      [data-kef-doc][data-kef-doc-show-refs] #main-content-container .page.relative .references:is(.page-linked,.page-unlinked),
+      [data-kef-doc][data-kef-doc-show-page-props] #main-content-container .ls-block.pre-block {
         display: block;
       }
-      .kef-doc .open-block-ref-link {
+      [data-kef-doc] .open-block-ref-link {
         display: none;
       }
-      .kef-doc .draw .my-1 {
+      [data-kef-doc] .draw .my-1 {
         display: none;
       }
-      .kef-doc .excalidraw > .layer-ui__wrapper {
+      [data-kef-doc] .excalidraw > .layer-ui__wrapper {
         display: none;
       }
-      .kef-doc .excalidraw > .excalidraw-textEditorContainer {
+      [data-kef-doc] .excalidraw > .excalidraw-textEditorContainer {
         display: none;
       }
-      .kef-doc #main-content-container .page.relative .references:is(.page-linked,.page-unlinked),
-      .kef-doc #main-content-container .ls-block.pre-block {
+      [data-kef-doc] #main-content-container .page.relative .references:is(.page-linked,.page-unlinked),
+      [data-kef-doc] #main-content-container .ls-block.pre-block {
         display: none;
       }
-      .kef-doc .cp__sidebar-main-content > div {
+      [data-kef-doc] .cp__sidebar-main-content > div {
         margin-bottom: 0 !important;
       }
-      .kef-doc #main-content-container .block-content-wrapper > .flex-row > *:not(:first-child) {
+      [data-kef-doc] #main-content-container .block-content-wrapper > .flex-row > *:not(:first-child) {
         display: none;
       }
-      .kef-doc #main-content-container .kef-tocgen-to {
+      [data-kef-doc] #main-content-container .kef-tocgen-to {
         display: none;
       }
-      .kef-doc :is(.embed-page,.embed-block).color-level {
+      [data-kef-doc] :is(.embed-page,.embed-block).color-level {
         background-color: unset !important;
         border: none !important;
       }
-      .kef-doc .asset-overlay,
-      .kef-doc .asset-action-bar,
-      .kef-doc :is(.embed-page,.embed-block):hover::after {
+      [data-kef-doc] .asset-overlay,
+      [data-kef-doc] .asset-action-bar,
+      [data-kef-doc] :is(.embed-page,.embed-block):hover::after {
         display: none !important;
       }
 
@@ -431,94 +431,94 @@ function injectStyles() {
     logseq.provideStyle({
       key: "kef-doc-unindent",
       style: `
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container .page-blocks-inner {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container .page-blocks-inner {
           margin-left: 0 !important;
         }
-        .kef-doc #main-content-container .page.relative > .relative:first-child > div:first-child > div.mb-4 {
+        [data-kef-doc] #main-content-container .page.relative > .relative:first-child > div:first-child > div.mb-4 {
           display: none;
         }
-        .kef-doc #main-content-container .block-content {
+        [data-kef-doc] #main-content-container .block-content {
           margin-bottom: 0.3em;
         }
-        .kef-doc #main-content-container .tag {
+        [data-kef-doc] #main-content-container .tag {
           display: none !important;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][haschild] > div:first-child > div:first-child {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][haschild] > div:first-child > div:first-child {
           display: none;
         }
-        .kef-doc #main-content-container .block-children-left-border {
+        [data-kef-doc] #main-content-container .block-children-left-border {
           display: none;
         }
-        .kef-doc #main-content-container .block-children {
+        [data-kef-doc] #main-content-container .block-children {
           border-left: 0 !important;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container .block-children-container {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container .block-children-container {
           margin-left: 0 !important;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] .block-control-wrap,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] .block-control-wrap {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] .block-control-wrap,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] .block-control-wrap {
           min-width: 0;
           margin-right: 5px;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div.is-order-list:first-child > .block-control,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div.is-order-list:first-child > .block-control,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child > .block-control {
           display: none;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div.is-order-list:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children div[blockid] > div:first-child > div:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children div[blockid] > div:first-child > div:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul-nested'] div[blockid] > .block-children-container .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested'] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div.is-order-list:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children div[blockid] > div:first-child > div:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children div[blockid] > div:first-child > div:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul-nested'] div[blockid] > .block-children-container .block-children > div[blockid] > div:first-child > div:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested'] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
           display: flex;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-2'] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-2'] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-2'] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-2'] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] div[blockid] > .block-children-container > .block-children > div[blockid] > div:first-child > div:first-child {
           display: none;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > .block-children-container,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] > .block-children-container > .block-children > div[blockid] > .block-children-container,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
           margin-left: 22px !important;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container .ls-block.is-order-list > .block-children-container,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul-nested'] > .block-children-container .block-children > div[blockid] > .block-children-container {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container .ls-block.is-order-list > .block-children-container,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul-nested'] > .block-children-container .block-children > div[blockid] > .block-children-container {
           margin-left: 22px !important;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested'] > .block-children-container > .block-children > div[blockid] > .block-children-container {
           margin-left: 0 !important;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-2'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-2'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-2'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-2'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol-nested-right-paren-3'] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container > .block-children > div[blockid] > .block-children-container {
           margin-left: 36px !important;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] div[blockid] .block-control,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .block-control,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .block-control {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .block-control,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] div[blockid] .block-control,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .block-control,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .block-control {
           min-width: 0;
           padding: 0;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[level="${unindentLevel}"] > .block-children-container .block-children-container {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[level="${unindentLevel}"] > .block-children-container .block-children-container {
           margin-left: 29px !important;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[level="${unindentLevel}"] > .block-children-container div[blockid] > div:first-child > div:first-child {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[level="${unindentLevel}"] > .block-children-container div[blockid] > div:first-child > div:first-child {
           display: flex;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[level="${unindentLevel}"] div[blockid] .block-control {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[level="${unindentLevel}"] div[blockid] .block-control {
           min-width: 11px;
         }
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] div[blockid] .control-show,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .control-show,
-        .kef-doc #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .control-show {
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ul"'] div[blockid] .control-show,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ul'] div[blockid] .control-show,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='"ol"'] div[blockid] .control-show,
+        [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][data-refs-self*='".ol'] div[blockid] .control-show {
           display: none;
         }
       `,
@@ -532,7 +532,7 @@ const model = {
   async toggleDocView() {
     const main = parent.document.querySelector("main.theme-inner")
 
-    if (main.classList.contains("kef-doc")) {
+    if ("kefDoc" in main.dataset) {
       for (const event of EVENTS_TO_PREVENT) {
         parent.document.documentElement.removeEventListener(
           event,
@@ -542,21 +542,20 @@ const model = {
           },
         )
       }
-      main.classList.remove("kef-doc", "kef-doc-show-refs")
-      main.classList.remove("kef-doc", "kef-doc-show-page-props")
+      delete main.dataset["kefDoc"]
+      delete main.dataset["kefDocShowRefs"]
+      delete main.dataset["kefDocShowPageProps"]
       parent.document.body.style.height = null
     } else {
       await logseq.Editor.exitEditingMode()
       parent.document.body.style.height = "auto"
-      main.classList.add(
-        ...[
-          "kef-doc",
-          ...(logseq.settings?.showReferences ? ["kef-doc-show-refs"] : []),
-          ...(logseq.settings?.showPageProps
-            ? ["kef-doc-show-page-props"]
-            : []),
-        ],
-      )
+      main.dataset["kefDoc"] = "true"
+      if (logseq.settings?.showReferences) {
+        main.dataset["kefDocShowRefs"] = "true"
+      }
+      if (logseq.settings?.showPageProps) {
+        main.dataset["kefDocShowPageProps"] = "true"
+      }
       for (const event of EVENTS_TO_PREVENT) {
         parent.document.documentElement.addEventListener(
           event,
@@ -626,12 +625,10 @@ async function main() {
         },
       )
     }
-    const appContainer = parent.document.getElementById("app-container")
-    appContainer.classList.remove(
-      "kef-doc",
-      "kef-doc-show-refs",
-      "kef-doc-show-page-props",
-    )
+    const main = parent.document.querySelector("main.theme-inner")
+    delete main.dataset["kefDoc"]
+    delete main.dataset["kefDocShowRefs"]
+    delete main.dataset["kefDocShowPageProps"]
     parent.document.body.style.height = null
   })
 
