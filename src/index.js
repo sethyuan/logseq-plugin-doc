@@ -440,7 +440,7 @@ function injectStyles() {
         [data-kef-doc] #main-content-container .block-content {
           margin-bottom: 0.3em;
         }
-        [data-kef-doc] #main-content-container .tag {
+        [data-kef-doc]:not([data-kef-doc-show-tags]) #main-content-container .tag {
           display: none !important;
         }
         [data-kef-doc] #app-container:not(.kef-long-form) #main-container:not(.kef-long-form) #main-content-container div[blockid][haschild] > div:first-child > div:first-child {
@@ -545,6 +545,7 @@ const model = {
       delete main.dataset["kefDoc"]
       delete main.dataset["kefDocShowRefs"]
       delete main.dataset["kefDocShowPageProps"]
+      delete main.dataset["kefDocShowTags"]
       parent.document.body.style.height = null
     } else {
       await logseq.Editor.exitEditingMode()
@@ -555,6 +556,9 @@ const model = {
       }
       if (logseq.settings?.showPageProps) {
         main.dataset["kefDocShowPageProps"] = "true"
+      }
+      if (logseq.settings?.showTags) {
+        main.dataset["kefDocShowTags"] = "true"
       }
       for (const event of EVENTS_TO_PREVENT) {
         parent.document.documentElement.addEventListener(
@@ -646,6 +650,12 @@ async function main() {
       type: "boolean",
       default: false,
       description: t("It defines whether or not to show the page properties."),
+    },
+    {
+      key: "showTags",
+      type: "boolean",
+      default: false,
+      description: t("It defines whether or not to show the tags."),
     },
     {
       key: "unindentLevel",
